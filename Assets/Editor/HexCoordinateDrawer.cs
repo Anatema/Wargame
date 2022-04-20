@@ -15,6 +15,5 @@ public class HexCoordinateDrawer : PropertyDrawer
 
 		position = EditorGUI.PrefixLabel(position, 1, label);
 		GUI.Label(position, coordinates.ToString()); 
-		//GUILayout.EndHorizontal();
 	}
 }

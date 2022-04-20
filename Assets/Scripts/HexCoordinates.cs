@@ -23,29 +23,23 @@ public struct HexCoordinates
 	
 	public override string ToString()
 	{
-		return $"({X.ToString()}, {Y.ToString()}, {Z.ToString()})";
+		return $"(x: {X.ToString()}, y: {Y.ToString()}, z: {Z.ToString()})";
 	}
-
 	public string ToStringOnSeparateLines()
 	{
 		return $"{X.ToString()},\n {Y.ToString()},\n {Z.ToString()}";
 	}
-	public static HexCoordinates FromPosition(Vector3 position)
-	{
-		float x = position.x / (HexMetrics.INNER_RADIUS * 2f);
-		float y = -x;
-		float offset = position.z / (HexMetrics.OUTER_RADIUS * 3f);
-		x -= offset;
-		y -= offset; 
-		int iX = Mathf.RoundToInt(x);
-		int iY = Mathf.RoundToInt(y);
-		int iZ = Mathf.RoundToInt(-x - y);
+	public static HexCoordinates RoundHex(Vector3 position)
+    {
+		int iX = Mathf.RoundToInt(position.x);
+		int iY = Mathf.RoundToInt(position.y);
+		int iZ = Mathf.RoundToInt(-position.x - position.y);
 
 		if (iX + iY + iZ != 0)
 		{
-			float dX = Mathf.Abs(x - iX);
-			float dY = Mathf.Abs(y - iY);
-			float dZ = Mathf.Abs(-x - y - iZ);
+			float dX = Mathf.Abs(position.x - iX);
+			float dY = Mathf.Abs(position.y - iY);
+			float dZ = Mathf.Abs(-position.x - position.y - iZ);
 
 			if (dX > dY && dX > dZ)
 			{
@@ -59,4 +53,18 @@ public struct HexCoordinates
 
 		return new HexCoordinates(iX, iZ);
 	}
+	public static HexCoordinates FromPosition(Vector3 position)
+	{
+		float x = position.x / (HexMetrics.INNER_RADIUS * 2f);
+		float y = -x;
+		float offset = position.z / (HexMetrics.OUTER_RADIUS * 3f);
+
+		x -= offset;
+		y -= offset;
+
+		return RoundHex(new Vector3(x, y, -x - y));		
+	}
+
+
+
 }
