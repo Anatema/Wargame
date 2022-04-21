@@ -32,12 +32,55 @@ public class HexGrid : MonoBehaviour
 		position = transform.InverseTransformPoint(position);
 		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
 
-
-		CalculateLine(coordinates);
+		//CalculateLine(coordinates);
+		CalculateReach();
 	}
+	private void CalculateReach()
+    {
+		int movement = 4;
+		List<Cell> visited = new List<Cell>();
+		visited.Add(GetCellByCoordintes(HexCoordintaes));
 
+		List<Cell> borders = new List<Cell>();
+		borders.Add(GetCellByCoordintes(HexCoordintaes));
+
+		for (int i = 0; i < movement; i++)
+        {
+			List<Cell> newBorders = new List<Cell>();
+			if(borders.Count < 1)
+            {
+				break;
+            }
+			foreach(Cell cell in borders)
+            {
+				foreach(Cell borderCell in cell.Neighbors)
+                {
+					if(!visited.Contains(borderCell) && borderCell.IsReachable)
+                    {
+						visited.Add(borderCell);
+						newBorders.Add(borderCell);
+
+					}
+                }
+            }
+			borders = newBorders;
+
+		}
+
+		foreach(Cell cell in visited)
+        {
+			cell.Higlight();
+        }
+
+
+
+	}
 	private void CalculateLine(HexCoordinates coordinates)
     {
+		if (coordinates == HexCoordintaes)
+        {
+			return;
+        }
 		int N = CubeDistance(HexCoordintaes, coordinates);
 
 		for (int i = 0; i <= N; i++)
@@ -55,9 +98,9 @@ public class HexGrid : MonoBehaviour
     {
 		Cell cell;
 		cell = (from c in generator.Cells
-				where (c.coordinates.X == coordinates.X &&
-				c.coordinates.Y == coordinates.Y)
+				where (c.coordinates == coordinates)
 				select c).First();
+
 		return cell;
     }
 	public Vector3Int CubeSubstract(HexCoordinates a, HexCoordinates b) 

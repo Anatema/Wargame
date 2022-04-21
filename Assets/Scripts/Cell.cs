@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
+    public bool IsReachable;
     public HexCoordinates coordinates;    
     public Text label;
 

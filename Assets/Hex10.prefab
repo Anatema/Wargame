@@ -95,11 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d585baebd766f46b18e024fa76ef5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsReachable: 1
   coordinates:
     _x: 0
     _z: 0
   label: {fileID: 0}
   Neighbors: []
+  OldColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!64 &-3891219015880884177
 MeshCollider:
   m_ObjectHideFlags: 0

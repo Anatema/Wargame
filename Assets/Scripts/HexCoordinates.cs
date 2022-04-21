@@ -15,19 +15,29 @@ public struct HexCoordinates
 			return -X - Z;
 		}
 	}
+
 	public HexCoordinates(int x, int z)
 	{
 		_x = x;
 		_z = z;
 	}
-	
+	public static bool operator ==(HexCoordinates c1, HexCoordinates c2)
+	{
+		return c1.X == c2.X && c1.Z == c2.Z;
+	}
+
+	public static bool operator !=(HexCoordinates c1, HexCoordinates c2)
+	{
+		return !(c1.X == c2.X && c1.Z == c2.Z);
+	}
+
 	public override string ToString()
 	{
-		return $"(x: {X.ToString()}, y: {Y.ToString()}, z: {Z.ToString()})";
+		return $"(x: {X}, y: {Y}, z: {Z})";
 	}
 	public string ToStringOnSeparateLines()
 	{
-		return $"{X.ToString()},\n {Y.ToString()},\n {Z.ToString()}";
+		return $"{X},\n {Y},\n {Z}";
 	}
 	public static HexCoordinates RoundHex(Vector3 position)
     {
@@ -65,6 +75,34 @@ public struct HexCoordinates
 		return RoundHex(new Vector3(x, y, -x - y));		
 	}
 
+    public override bool Equals(object obj)
+    {
+		return obj is HexCoordinates coordinates &&
+			   _x == coordinates._x &&
+			   _z == coordinates._z;
+    }
+
+    public override int GetHashCode()
+    {
+        int hashCode = 1239827070;
+        hashCode = hashCode * -1521134295 + _x.GetHashCode();
+        hashCode = hashCode * -1521134295 + _z.GetHashCode();
+        hashCode = hashCode * -1521134295 + X.GetHashCode();
+        hashCode = hashCode * -1521134295 + Z.GetHashCode();
+        hashCode = hashCode * -1521134295 + Y.GetHashCode();
+        return hashCode;
+    }
 
 
+	public static HexCoordinates operator +(HexCoordinates first, HexCoordinates second)
+	{
+		int x = first.X + second.X;
+		int z = first.Z + second.Z;
+        return new HexCoordinates 
+		{
+			_x = first.X + second.X,
+			_z = first.Z + second.Z,
+		};
+
+    }
 }

@@ -6,13 +6,14 @@ using System.Linq;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField, Min(0)]
+    [Min(0)]
     public int GridRadius = 0;
     //public float CellSizeMultiplicator;
 
     public Cell CellPrefab;
     public Text CellLabelPrefab;
     public List<Cell> Cells;
+
 
     public HexGrid HexGrid;
     public Canvas GridCanvas;
@@ -24,15 +25,17 @@ public class MapGenerator : MonoBehaviour
     {
         ClearGrid();
         Cells = new List<Cell>();
+        
 
-        for (int y = -GridRadius; y <= GridRadius; y++)
+
+        for (int z = -GridRadius; z <= GridRadius; z++)
         {
-            int r1 = Mathf.Max(-GridRadius, -y - GridRadius);
-            int r2 = Mathf.Min(GridRadius, -y + GridRadius);
+            int r1 = Mathf.Max(-GridRadius, -z - GridRadius);
+            int r2 = Mathf.Min(GridRadius, -z + GridRadius);
+
             for (int x = r1; x <= r2; x++)
             {
-                //CreateCell(x, y, -x - y);
-                CreateCell(x, y, -y - x);
+                CreateCell(x, z);
             }
         }
 
@@ -51,11 +54,11 @@ public class MapGenerator : MonoBehaviour
             DestroyImmediate(GridCanvas.transform.GetChild(0).gameObject);
         }
     }
-    private void CreateCell(int x, int y, int z)
+    private void CreateCell(int x, int z)
     {
-        Vector3 position = new Vector3(0, 0, 0);
+        Vector3 position = new Vector3();
         position.x = (x * HexMetrics.INNER_RADIUS * 2f + z * HexMetrics.INNER_RADIUS);
-        position.z = z * HexMetrics.OUTER_RADIUS * 2f - HexMetrics.OUTER_RADIUS/2 * z;
+        position.z = z * HexMetrics.OUTER_RADIUS * 2f - HexMetrics.OUTER_RADIUS / 2 * z;
         //position *= CellSizeMultiplicator;
 
         Cell cell = Instantiate(CellPrefab);
@@ -63,14 +66,14 @@ public class MapGenerator : MonoBehaviour
         cell.transform.SetParent(HexGrid.transform, false);
         cell.transform.localPosition = position;
         Cells.Add(cell);
+        
 
         Text label = Instantiate(Label, GridCanvas.transform);
         label.text = cell.coordinates.ToStringOnSeparateLines();
         label.transform.position = position + Vector3.up;
     }
     private void SetCellsNeighbours()
-    {
-       
+    { 
         foreach (Cell cell in Cells)
         {
             cell.Neighbors = new List<Cell>();
