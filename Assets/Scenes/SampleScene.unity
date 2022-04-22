@@ -326,6 +326,10 @@ MonoBehaviour:
   - {fileID: 709327222}
   - {fileID: 1043620947}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &33333637
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -436,6 +440,7 @@ MonoBehaviour:
   HexCoordintaes:
     _x: 0
     _z: 0
+  Movement: 0
 --- !u!4 &35329509
 Transform:
   m_ObjectHideFlags: 0
@@ -622,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d585baebd766f46b18e024fa76ef5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsReachable: 1
+  IsReachable: 0
   coordinates:
     _x: 1
     _z: 0
@@ -635,6 +640,10 @@ MonoBehaviour:
   - {fileID: 1845378413}
   - {fileID: 2057097193}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &80209851
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -757,6 +766,10 @@ MonoBehaviour:
   - {fileID: 1758536899}
   - {fileID: 882215436}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &84256362
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1656,6 +1669,10 @@ MonoBehaviour:
   - {fileID: 882215436}
   - {fileID: 949346604}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &297606089
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1778,6 +1795,10 @@ MonoBehaviour:
   - {fileID: 1132990522}
   - {fileID: 1996018195}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &299527925
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1898,6 +1919,10 @@ MonoBehaviour:
   - {fileID: 1997205773}
   - {fileID: 1620936262}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &318611596
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2020,6 +2045,10 @@ MonoBehaviour:
   - {fileID: 84256361}
   - {fileID: 297606088}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &321120945
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2142,6 +2171,10 @@ MonoBehaviour:
   - {fileID: 1498556956}
   - {fileID: 419780636}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &330560394
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2262,6 +2295,10 @@ MonoBehaviour:
   - {fileID: 1758536899}
   - {fileID: 832343238}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &334550202
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2539,6 +2576,10 @@ MonoBehaviour:
   - {fileID: 1384202785}
   - {fileID: 330560393}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &382563276
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2740,6 +2781,10 @@ MonoBehaviour:
   - {fileID: 903435342}
   - {fileID: 1997205773}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &392309111
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2860,6 +2905,10 @@ MonoBehaviour:
   - {fileID: 487168209}
   - {fileID: 299527924}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &397618353
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2982,6 +3031,10 @@ MonoBehaviour:
   - {fileID: 1487314113}
   - {fileID: 1312101498}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &419780637
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3104,6 +3157,10 @@ MonoBehaviour:
   - {fileID: 419780636}
   - {fileID: 1813742293}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &447617872
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3224,6 +3281,10 @@ MonoBehaviour:
   - {fileID: 1090648012}
   - {fileID: 525939681}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &451427566
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3502,6 +3563,10 @@ MonoBehaviour:
   - {fileID: 1093125827}
   - {fileID: 1132990522}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &487168210
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3700,6 +3765,10 @@ MonoBehaviour:
   - {fileID: 1090648012}
   - {fileID: 1575385924}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &525939682
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4138,6 +4207,10 @@ MonoBehaviour:
   - {fileID: 2057097193}
   - {fileID: 771647795}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &588073522
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4753,6 +4826,10 @@ MonoBehaviour:
   - {fileID: 33333636}
   - {fileID: 1043620947}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &709327223
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4875,6 +4952,10 @@ MonoBehaviour:
   - {fileID: 1374773609}
   - {fileID: 1811964515}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &771647796
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5074,6 +5155,10 @@ MonoBehaviour:
   - {fileID: 33333636}
   - {fileID: 709327222}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &832343239
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5275,6 +5360,10 @@ MonoBehaviour:
   - {fileID: 33333636}
   - {fileID: 1312078004}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &882215437
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5395,6 +5484,10 @@ MonoBehaviour:
   - {fileID: 1651712368}
   - {fileID: 334550201}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &888419561
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5517,6 +5610,10 @@ MonoBehaviour:
   - {fileID: 1200139992}
   - {fileID: 1473710160}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &903435343
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5639,6 +5736,10 @@ MonoBehaviour:
   - {fileID: 1432175796}
   - {fileID: 80209850}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &929074321
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5761,6 +5862,10 @@ MonoBehaviour:
   - {fileID: 1312078004}
   - {fileID: 903435342}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &949346605
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5881,6 +5986,10 @@ MonoBehaviour:
   - {fileID: 709327222}
   - {fileID: 1200139992}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1043620948
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6003,6 +6112,10 @@ MonoBehaviour:
   - {fileID: 80209850}
   - {fileID: 588073521}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1051405609
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6125,6 +6238,10 @@ MonoBehaviour:
   - {fileID: 771647795}
   - {fileID: 1575385924}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1090648013
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6244,6 +6361,10 @@ MonoBehaviour:
   - {fileID: 1132990522}
   - {fileID: 888419560}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1093125828
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6445,6 +6566,10 @@ MonoBehaviour:
   - {fileID: 888419560}
   - {fileID: 1651712368}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1132990523
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6881,6 +7006,10 @@ MonoBehaviour:
   - {fileID: 1043620947}
   - {fileID: 1473710160}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1200139993
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7082,6 +7211,10 @@ MonoBehaviour:
   - {fileID: 929074320}
   - {fileID: 1051405608}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1270780914
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7297,6 +7430,10 @@ MonoBehaviour:
   - {fileID: 1043620947}
   - {fileID: 1200139992}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1312078005
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7419,6 +7556,10 @@ MonoBehaviour:
   - {fileID: 321120944}
   - {fileID: 1432175796}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1312101499
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7539,6 +7680,10 @@ MonoBehaviour:
   - {fileID: 1930046593}
   - {fileID: 2042595984}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1312948011
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7740,6 +7885,10 @@ MonoBehaviour:
   - {fileID: 1270780913}
   - {fileID: 1930046593}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1337874841
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7941,6 +8090,10 @@ MonoBehaviour:
   - {fileID: 1813742293}
   - {fileID: 1270780913}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1349134796
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8142,6 +8295,10 @@ MonoBehaviour:
   - {fileID: 1997205773}
   - {fileID: 318611595}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1374773610
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8262,6 +8419,10 @@ MonoBehaviour:
   - {fileID: 397618352}
   - {fileID: 1498556956}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1384202786
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8463,6 +8624,10 @@ MonoBehaviour:
   - {fileID: 297606088}
   - {fileID: 1845378413}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1432175797
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8583,6 +8748,10 @@ MonoBehaviour:
   - {fileID: 1200139992}
   - {fileID: 1620936262}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1473710161
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8863,6 +9032,10 @@ MonoBehaviour:
   - {fileID: 1996018195}
   - {fileID: 321120944}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1487314114
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8985,6 +9158,10 @@ MonoBehaviour:
   - {fileID: 299527924}
   - {fileID: 1487314113}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1498556957
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9179,6 +9356,10 @@ MonoBehaviour:
   - {fileID: 771647795}
   - {fileID: 1811964515}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1575385925
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9377,6 +9558,10 @@ MonoBehaviour:
   - {fileID: 318611595}
   - {fileID: 1473710160}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1620936263
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9578,6 +9763,10 @@ MonoBehaviour:
   - {fileID: 334550201}
   - {fileID: 1758536899}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1651712369
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9698,6 +9887,10 @@ MonoBehaviour:
   - {fileID: 1349134795}
   - {fileID: 1337874840}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1672819877
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10136,6 +10329,10 @@ MonoBehaviour:
   - {fileID: 832343238}
   - {fileID: 33333636}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1758536900
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10337,6 +10534,10 @@ MonoBehaviour:
   - {fileID: 588073521}
   - {fileID: 1090648012}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1801619989
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10457,6 +10658,10 @@ MonoBehaviour:
   - {fileID: 1374773609}
   - {fileID: 318611595}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1811964516
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10658,6 +10863,10 @@ MonoBehaviour:
   - {fileID: 1312101498}
   - {fileID: 929074320}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1813742294
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10889,6 +11098,10 @@ MonoBehaviour:
   - {fileID: 330560393}
   - {fileID: 447617871}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1844200420
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11011,6 +11224,10 @@ MonoBehaviour:
   - {fileID: 949346604}
   - {fileID: 392309110}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1845378414
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11449,6 +11666,10 @@ MonoBehaviour:
   - {fileID: 1051405608}
   - {fileID: 1801619988}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1930046594
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11569,6 +11790,10 @@ MonoBehaviour:
   - {fileID: 447617871}
   - {fileID: 1349134795}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1930560728
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12007,6 +12232,10 @@ MonoBehaviour:
   - {fileID: 1651712368}
   - {fileID: 84256361}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1996018196
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12129,6 +12358,10 @@ MonoBehaviour:
   - {fileID: 1473710160}
   - {fileID: 1620936262}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &1997205774
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12249,6 +12482,10 @@ MonoBehaviour:
   - {fileID: 1801619988}
   - {fileID: 451427565}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &2042595985
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12447,6 +12684,10 @@ MonoBehaviour:
   - {fileID: 1337874840}
   - {fileID: 1312948010}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &2045795182
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12569,6 +12810,10 @@ MonoBehaviour:
   - {fileID: 392309110}
   - {fileID: 1374773609}
   OldColor: {r: 0, g: 0, b: 0, a: 0}
+  GCost: 0
+  HCost: 0
+  parent: {fileID: 0}
+  movementCost: 0
 --- !u!64 &2057097194
 MeshCollider:
   m_ObjectHideFlags: 0

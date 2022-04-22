@@ -8,7 +8,7 @@ public class HexGrid : MonoBehaviour
 	public MapGenerator generator;
 	public HexCoordinates HexCoordintaes;
 
-
+	public int Movement;
 	void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
@@ -32,19 +32,88 @@ public class HexGrid : MonoBehaviour
 		position = transform.InverseTransformPoint(position);
 		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
 
+		CalculatePath(GetCellByCoordintes(HexCoordintaes), GetCellByCoordintes(coordinates));
 		//CalculateLine(coordinates);
-		CalculateReach();
+		//CalculateReach();
 	}
+
+	private void CalculatePath(Cell startCell, Cell targetCell)
+    {
+		Heap<Cell> openSet = new Heap<Cell>(generator.Cells.Count);
+		HashSet<Cell> closedSet = new HashSet<Cell>();
+		openSet.Add(startCell);
+
+		while(openSet.Count > 0)
+        {
+			Cell currentCell = openSet.RemoveFirst();
+			/*for(int i = 0; i < openSet.Count; i++)
+            {
+				if(openSet[i].FCost < currentCell.FCost || openSet[i].FCost == currentCell.FCost && openSet[i].HCost < currentCell.HCost)
+                {
+					currentCell = openSet[i];
+                }
+            }
+			openSet.Remove(currentCell);*/
+			closedSet.Add(currentCell);
+
+			if (currentCell == targetCell)
+            {
+				RetracePath(startCell, targetCell);
+				return;
+            }
+
+			foreach(Cell neighbour in currentCell.Neighbors)
+            {
+				if(!neighbour.IsReachable || closedSet.Contains(neighbour))
+                {
+					continue;
+                }
+
+				int newMovementCostToNeighbour = currentCell.GCost + CubeDistance(currentCell, neighbour) + neighbour.movementCost;
+				if(newMovementCostToNeighbour < neighbour.GCost || !openSet.Contains(neighbour))
+				{
+					neighbour.GCost = newMovementCostToNeighbour;
+					neighbour.HCost = CubeDistance(neighbour, targetCell);
+					neighbour.parent = currentCell;
+
+                    if (!openSet.Contains(neighbour))
+                    {
+						openSet.Add(neighbour);
+                    }
+					else
+                    {
+						openSet.UpdateItem(neighbour);
+                    }
+                }
+            }
+			
+		}
+	}
+	private void RetracePath(Cell startCell, Cell endCell)
+    {
+		List<Cell> path = new List<Cell>();
+		Cell currentCell = endCell;
+		while(currentCell != startCell)
+        {
+			path.Add(currentCell);
+			currentCell = currentCell.parent;
+        }	
+		
+		foreach(Cell cell in path)
+        {
+			cell.Higlight();
+        }
+    }
+	//GetNeighbours;
 	private void CalculateReach()
     {
-		int movement = 4;
 		List<Cell> visited = new List<Cell>();
 		visited.Add(GetCellByCoordintes(HexCoordintaes));
 
 		List<Cell> borders = new List<Cell>();
 		borders.Add(GetCellByCoordintes(HexCoordintaes));
 
-		for (int i = 0; i < movement; i++)
+		for (int i = 0; i < Movement; i++)
         {
 			List<Cell> newBorders = new List<Cell>();
 			if(borders.Count < 1)
@@ -108,6 +177,10 @@ public class HexGrid : MonoBehaviour
 		return new Vector3Int(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 	}
 
+	public int CubeDistance(Cell a, Cell b)
+    {
+		return CubeDistance(a.coordinates, b.coordinates);
+    }
 	public int CubeDistance(HexCoordinates a, HexCoordinates b) 
 	{
 
