@@ -5,41 +5,28 @@ using System.Linq;
 
 public class HexGrid : MonoBehaviour
 {
-	public MapGenerator generator;
+	//public MapGenerator generator;
+	public List<Cell> Cells;
 	public HexCoordinates HexCoordintaes;
 
-	public int Movement;
 	void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			HandleInput();
+			//HandleInput();
 		}
 	}
 
-	void HandleInput()
-	{
-		Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-		if (Physics.Raycast(inputRay, out hit))
-		{
-			TouchCell(hit.point);
-		}
-	}
 
-	void TouchCell(Vector3 position)
-	{
-		position = transform.InverseTransformPoint(position);
-		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-
-		CalculatePath(GetCellByCoordintes(HexCoordintaes), GetCellByCoordintes(coordinates));
-		//CalculateLine(coordinates);
-		//CalculateReach();
-	}
-
-	private void CalculatePath(Cell startCell, Cell targetCell)
+    public void SetGrid(List<Cell> cells)
     {
-		Heap<Cell> openSet = new Heap<Cell>(generator.Cells.Count);
+		Cells = cells;
+	}
+	
+	
+	public List<Cell> CalculatePath(Cell startCell, Cell targetCell, bool includeTargetUnit = false)
+    {
+		Heap<Cell> openSet = new Heap<Cell>(Cells.Count);
 		HashSet<Cell> closedSet = new HashSet<Cell>();
 		openSet.Add(startCell);
 
@@ -58,13 +45,23 @@ public class HexGrid : MonoBehaviour
 
 			if (currentCell == targetCell)
             {
-				RetracePath(startCell, targetCell);
-				return;
+                
+				return RetracePath(startCell, targetCell);
+				//return;
             }
 
 			foreach(Cell neighbour in currentCell.Neighbors)
             {
-				if(!neighbour.IsReachable || closedSet.Contains(neighbour))
+				bool neighbourGroundUnit = false;
+				if (includeTargetUnit)
+				{
+					neighbourGroundUnit = (neighbour.GroundUnit && neighbour != targetCell);
+				}
+				else
+                {
+					neighbourGroundUnit = neighbour.GroundUnit;
+				}
+				if (!neighbour.IsReachable || closedSet.Contains(neighbour) || neighbourGroundUnit)
                 {
 					continue;
                 }
@@ -88,8 +85,26 @@ public class HexGrid : MonoBehaviour
             }
 			
 		}
+		return null;
 	}
-	private void RetracePath(Cell startCell, Cell endCell)
+	public List<Cell> CalculatePath(Cell startCell, Cell targetCell, int movement, bool includeTargetUnit = false)
+	{
+		List<Cell> path = CalculatePath(startCell, targetCell, includeTargetUnit);
+		List<Cell> newPath = new List<Cell>();
+        foreach(Cell cell in path)
+        {
+			if(movement - cell.movementCost < 0)
+            {
+				break;
+            }
+			movement -= cell.movementCost;
+			newPath.Add(cell);
+
+		}
+		return newPath;
+	}
+
+	private List<Cell> RetracePath(Cell startCell, Cell endCell)
     {
 		List<Cell> path = new List<Cell>();
 		Cell currentCell = endCell;
@@ -97,52 +112,62 @@ public class HexGrid : MonoBehaviour
         {
 			path.Add(currentCell);
 			currentCell = currentCell.parent;
-        }	
-		
-		foreach(Cell cell in path)
-        {
-			cell.Higlight();
         }
+
+		return path;
     }
-	//GetNeighbours;
-	private void CalculateReach()
+	public void ClearGrid()
     {
-		List<Cell> visited = new List<Cell>();
-		visited.Add(GetCellByCoordintes(HexCoordintaes));
+		foreach (Cell cell in Cells)
+		{
+			cell.SetAsNormal();
+		}
+	}
+    
+	public List<Cell> CalculateReach(Cell startCell, int movement, bool veighed = true, bool countObstacles = true)
+	{
+		//ClearGrid();
+		Dictionary<Cell, Cell> visitedCells = new Dictionary<Cell, Cell>();
+		Dictionary<Cell, int> costSoFar = new Dictionary<Cell, int>();
+		Queue<Cell> nodesToVisitQueue = new Queue<Cell>();
 
-		List<Cell> borders = new List<Cell>();
-		borders.Add(GetCellByCoordintes(HexCoordintaes));
+		nodesToVisitQueue.Enqueue(startCell);
+		costSoFar.Add(startCell, 0);
 
-		for (int i = 0; i < Movement; i++)
+		while(nodesToVisitQueue.Count > 0)
         {
-			List<Cell> newBorders = new List<Cell>();
-			if(borders.Count < 1)
-            {
-				break;
-            }
-			foreach(Cell cell in borders)
-            {
-				foreach(Cell borderCell in cell.Neighbors)
+			Cell currentNode = nodesToVisitQueue.Dequeue();
+			foreach (Cell neighbour in currentNode.Neighbors)
+			{
+				if (countObstacles && (!neighbour.IsReachable || neighbour.GroundUnit))
+				{
+					continue;
+				}
+				int nodeCost = 1;
+				if(veighed)
                 {
-					if(!visited.Contains(borderCell) && borderCell.IsReachable)
-                    {
-						visited.Add(borderCell);
-						newBorders.Add(borderCell);
+					nodeCost = neighbour.movementCost;
+				}
+				int currentCost = costSoFar[currentNode];
+				int newCost = currentCost + nodeCost;
 
+				if (newCost <= movement)
+                {
+					if (!visitedCells.ContainsKey(neighbour))
+                    {
+						visitedCells[neighbour] = currentNode;
+						costSoFar[neighbour] = newCost;
+						nodesToVisitQueue.Enqueue(neighbour);
+                    }
+					else if(costSoFar[neighbour] > newCost)
+                    {
+						costSoFar[neighbour] = newCost;
+						visitedCells[neighbour] = currentNode;
 					}
                 }
-            }
-			borders = newBorders;
-
-		}
-
-		foreach(Cell cell in visited)
-        {
-			cell.Higlight();
+			}
         }
-
-
-
+		return visitedCells.Keys.ToList();
 	}
 	private void CalculateLine(HexCoordinates coordinates)
     {
@@ -166,22 +191,22 @@ public class HexGrid : MonoBehaviour
 	public Cell GetCellByCoordintes(HexCoordinates coordinates)
     {
 		Cell cell;
-		cell = (from c in generator.Cells
+		cell = (from c in Cells
 				where (c.coordinates == coordinates)
 				select c).First();
 
 		return cell;
     }
-	public Vector3Int CubeSubstract(HexCoordinates a, HexCoordinates b) 
+	public static Vector3Int CubeSubstract(HexCoordinates a, HexCoordinates b) 
 	{
 		return new Vector3Int(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 	}
 
-	public int CubeDistance(Cell a, Cell b)
+	public static int CubeDistance(Cell a, Cell b)
     {
 		return CubeDistance(a.coordinates, b.coordinates);
     }
-	public int CubeDistance(HexCoordinates a, HexCoordinates b) 
+	public static int CubeDistance(HexCoordinates a, HexCoordinates b) 
 	{
 
 		Vector3Int vector = CubeSubstract(a, b);
