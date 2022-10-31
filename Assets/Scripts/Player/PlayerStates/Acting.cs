@@ -130,6 +130,17 @@ public class Acting : PlayerState
                     else if (_achivableUnits.Contains(targetCell.GroundUnit) && HexGrid.CubeDistance(targetCell, _activeUnit.Cell) <= 3)
                     {
                         Debug.Log("attack!");
+                        foreach(Targeter targeter in _activeAbilty.Targeters)
+                        {
+                            targeter.GetTargets(targetCell, out List<Cell> targets, out List<Cell> cellPattern);
+                            foreach(Cell cell in targets)
+                            {
+                                foreach(Action action in targeter.actions)
+                                {
+                                    action.Invoke(_activeUnit, cell);
+                                }
+                            }
+                        }
                         //attack
                     }
                     else if (_achivableUnits.Contains(targetCell.GroundUnit) && HexGrid.CubeDistance(targetCell, _activeUnit.Cell) > 3)
@@ -138,6 +149,17 @@ public class Acting : PlayerState
                         if (_currentPath != null)
                         {
                             _activeUnit.Movement.Move(_currentPath);
+                        }
+                        foreach (Targeter targeter in _activeAbilty.Targeters)
+                        {
+                            targeter.GetTargets(targetCell, out List<Cell> targets, out List<Cell> cellPattern);
+                            foreach (Cell cell in targets)
+                            {
+                                foreach (Action action in targeter.actions)
+                                {
+                                    action.Invoke(_activeUnit, cell);
+                                }
+                            }
                         }
                         //move and attack
                         //attack
@@ -262,6 +284,7 @@ public class Acting : PlayerState
             List<Cell> CellsInRange = PlayerController.Battle.Grid.CalculateReach(unit.Cell, abiltyRange, false, false);
             foreach (Cell cell in CellsInRange)
             {
+                //Check targeter
                 if (cellsRange.Contains(cell) && unit)
                 {
                     targets.Add(unit);

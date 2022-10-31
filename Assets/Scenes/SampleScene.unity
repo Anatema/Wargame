@@ -8579,11 +8579,11 @@ MonoBehaviour:
     Cell: {fileID: 5243820335586145180}
   Health:
     _unit: {fileID: 74285555127089720}
-    _defence: 1
+    _defence: 0
     _maxHealth: 100
     _currentHealth: 100
   Abilities:
-  - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
+  - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
   _currentUnitSize: 10
 --- !u!64 &114473636414677488
@@ -20666,16 +20666,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Movement:
     _unit: {fileID: 5747293762042679553}
-    MovingPoints: 0
+    MovingPoints: 10
     Cell: {fileID: 4489674868968839969}
   Health:
     _unit: {fileID: 5747293762042679553}
     _defence: 0
-    _maxHealth: 0
-    _currentHealth: 0
-  Abilities: []
+    _maxHealth: 100
+    _currentHealth: 100
+  Abilities:
+  - {fileID: 0}
   PlayerIndex: 0
-  _currentUnitSize: 0
+  _currentUnitSize: 10
 --- !u!114 &5829505795207547874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23684,12 +23685,12 @@ MonoBehaviour:
     Cell: {fileID: 4527061929068047985}
   Health:
     _unit: {fileID: 7344289780026406454}
-    _defence: 1
+    _defence: 0
     _maxHealth: 100
     _currentHealth: 100
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
-  PlayerIndex: 1
+  PlayerIndex: 0
   _currentUnitSize: 10
 --- !u!114 &7405652586959816346
 MonoBehaviour:
@@ -24910,16 +24911,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Movement:
     _unit: {fileID: 7990924026756035757}
-    MovingPoints: 0
+    MovingPoints: 10
     Cell: {fileID: 8403949769780554280}
   Health:
     _unit: {fileID: 7990924026756035757}
     _defence: 0
-    _maxHealth: 0
-    _currentHealth: 0
-  Abilities: []
+    _maxHealth: 100
+    _currentHealth: 100
+  Abilities:
+  - {fileID: 0}
   PlayerIndex: 0
-  _currentUnitSize: 0
+  _currentUnitSize: 10
 --- !u!114 &8003080193234147055
 MonoBehaviour:
   m_ObjectHideFlags: 0

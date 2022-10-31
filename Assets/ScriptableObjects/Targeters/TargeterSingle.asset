@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9fefe968b6f91b48a632fa6436f8f59, type: 3}
-  m_Name: Attack
+  m_Script: {fileID: 11500000, guid: 1475946efc41bbc41bbcff09149d166a, type: 3}
+  m_Name: TargeterSingle
   m_EditorClassIdentifier: 
-  Damage:
-    DamageValue: 2
-  NumberOfAttacks: 5
-  isRanged: 0
+  actions:
+  - {fileID: 11400000, guid: 7657d961a28b7ae47a8df9315a63d8cd, type: 2}

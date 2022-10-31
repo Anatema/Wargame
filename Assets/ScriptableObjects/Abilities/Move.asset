@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Move
   m_EditorClassIdentifier: 
   Name: Move
-  PreviewTags: 
-  Actions: []
   CanMoveAndAct: 1
   CanTargetGround: 0
+  Targeters: []
