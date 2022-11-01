@@ -23,7 +23,31 @@ public class HexGrid : MonoBehaviour
 		Cells = cells;
 	}
 	
-	
+	public List<Cell> GetPathWithReach(Cell startCell, Cell targetCell, int WeaponeReach)
+    {
+		List<Cell> path = GameObject.FindObjectOfType<HexGrid>().CalculatePath(startCell, targetCell, true);
+
+		if (path == null)
+		{
+			return null;
+		}
+		path.Reverse();
+		List<Cell> _currentPath = new List<Cell>();
+
+		int count = 0;
+		foreach (Cell cell in path)
+		{
+			_currentPath.Add(cell);
+			count++;
+
+			if (HexGrid.CubeDistance(cell, targetCell) <= WeaponeReach)
+			{
+				break;
+			}
+		}
+
+		return _currentPath;
+	}
 	public List<Cell> CalculatePath(Cell startCell, Cell targetCell, bool includeTargetUnit = false)
     {
 		Heap<Cell> openSet = new Heap<Cell>(Cells.Count);

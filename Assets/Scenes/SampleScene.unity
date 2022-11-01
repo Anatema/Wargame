@@ -8585,6 +8585,7 @@ MonoBehaviour:
   Abilities:
   - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
+  _maxUnitSize: 10
   _currentUnitSize: 10
 --- !u!64 &114473636414677488
 MeshCollider:
@@ -20674,8 +20675,9 @@ MonoBehaviour:
     _maxHealth: 100
     _currentHealth: 100
   Abilities:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
+  _maxUnitSize: 10
   _currentUnitSize: 10
 --- !u!114 &5829505795207547874
 MonoBehaviour:
@@ -23691,6 +23693,7 @@ MonoBehaviour:
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
   PlayerIndex: 0
+  _maxUnitSize: 10
   _currentUnitSize: 10
 --- !u!114 &7405652586959816346
 MonoBehaviour:
@@ -24919,8 +24922,9 @@ MonoBehaviour:
     _maxHealth: 100
     _currentHealth: 100
   Abilities:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
+  _maxUnitSize: 10
   _currentUnitSize: 10
 --- !u!114 &8003080193234147055
 MonoBehaviour:

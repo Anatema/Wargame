@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
     private float _maxMorale;
     private float _currentMorale;
 
+    [SerializeField]
     private int _maxUnitSize;
     [SerializeField]
     private int _currentUnitSize;

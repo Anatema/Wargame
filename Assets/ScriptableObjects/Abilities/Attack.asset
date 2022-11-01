@@ -15,5 +15,6 @@ MonoBehaviour:
   Name: Attack
   CanMoveAndAct: 1
   CanTargetGround: 0
+  Range: 1
   Targeters:
   - {fileID: 11400000, guid: ea678145f85aae7438069aaf031a03a7, type: 2}
