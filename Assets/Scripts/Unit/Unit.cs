@@ -34,6 +34,8 @@ public class Unit : MonoBehaviour
 
     private int _speed;
 
+    public bool IsEnded;
+
     //private List<Trait> _traits;
     //private GameObject _actior / private Actor _actor;
 
@@ -69,7 +71,13 @@ public class Unit : MonoBehaviour
 
     public void Death()
     {
+        if (FindObjectOfType<Battle>())
+        {
+            FindObjectOfType<Battle>().RemoveUnit(this);
+        }
+        Cell.RemoveGroundUnit();
         Debug.Log("Unit killed!");
+        Destroy(this.gameObject);
     }
     public void RemoveModel()
     {

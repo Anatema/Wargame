@@ -19,7 +19,7 @@ public class Move : Action
         {
             path.RemoveAt(path.Count - 1);
         }
-        int movementLeft = caster.Movement.MovingPoints;
+        int movementLeft = caster.Movement.CurrentMovingPoints;
         foreach (Cell cell in path)
         {
             movementLeft -= cell.movementCost;

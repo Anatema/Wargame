@@ -34,10 +34,12 @@ public class Selecting : PlayerState
                     data += "Squad size :" + cell.GroundUnit.CurrentUnitSize + "\\" + cell.GroundUnit.MaxUnitSize + "\n";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-
-                        PlayerController.SelectedUnit = cell.GroundUnit;
-                        PlayerController.SelectState(PlayerController.Acting);
-                        return;
+                        if (!cell.GroundUnit.IsEnded)
+                        {
+                            PlayerController.SelectedUnit = cell.GroundUnit;
+                            PlayerController.SelectState(PlayerController.Acting);
+                            return;
+                        }
                     }
                 }
 

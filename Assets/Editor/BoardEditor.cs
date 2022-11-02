@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System;
 
 public class BoardEditor : EditorWindow
 {
@@ -15,6 +16,7 @@ public class BoardEditor : EditorWindow
     private LayerMask _cellLayer;
     private string[] displayedOptions;
     private Actions _action;
+    private int _unitSide;
     private enum Actions { AddObjects, RemoveObjects, Nothing }
 
     private bool _activeChange = false;
@@ -133,6 +135,7 @@ public class BoardEditor : EditorWindow
         _unitPrefab = (Unit)EditorGUILayout.ObjectField("Unit prefab", _unitPrefab, typeof(Unit), true);
         _cellLayer = EditorGUILayout.MaskField("Ground layer", _cellLayer, displayedOptions);
         _action = (Actions)EditorGUILayout.EnumPopup(_action);
+        _unitSide = EditorGUILayout.IntField("Number of clones:", _unitSide);
 
         GUI.enabled = !_activeUnit;
         if (GUILayout.Button("Start editing"))
@@ -344,6 +347,7 @@ public class BoardEditor : EditorWindow
             return;
         }
         Unit unit = PrefabUtility.InstantiatePrefab(_unitPrefab) as Unit;
+        unit.PlayerIndex = Convert.ToByte(_unitSide);
         PrefabUtility.UnpackPrefabInstance(unit.gameObject, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
         FindObjectOfType<Battle>().AddUnit(unit);
 

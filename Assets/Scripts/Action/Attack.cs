@@ -23,6 +23,7 @@ public class Attack : Action
         numberOfAttacks = NumberOfAttacks * caster.CurrentUnitSize;
 
         List<Damage> damages = new List<Damage>();
+        Debug.Log(numberOfAttacks);
         for(int i = 0; i < numberOfAttacks; i++)
         {
             Damage damage = Damage;

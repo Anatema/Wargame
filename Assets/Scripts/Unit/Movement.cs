@@ -8,7 +8,8 @@ public class Movement
 {
     [SerializeField]
     private Unit _unit;
-    public int MovingPoints;
+    public int CurrentMovingPoints;
+    public int MaxMovingPoints;
     public Cell Cell;
     public Movement(Unit unit, Cell cell)
     {
@@ -32,12 +33,15 @@ public class Movement
             Cell = cell;
             Cell.SetUnit(_unit);
             _unit.transform.position = cell.transform.position + Vector3.up * 3;
+
+            CurrentMovingPoints -= cell.movementCost;
         }
     }
    
     public List<Cell> GetReach()
-    {       
-        return Cell.Grid.CalculateReach(Cell, MovingPoints);
+    {
+        
+        return Cell.Grid.CalculateReach(Cell, CurrentMovingPoints);
     }
     public void RemoveCell()
     {

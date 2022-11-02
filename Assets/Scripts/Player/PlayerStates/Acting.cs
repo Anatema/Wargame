@@ -59,8 +59,7 @@ public class Acting : PlayerState
             return;
 
         }
-        _activeAbilty = _activeUnit.Abilities[0];
-        _activeAbilty.Prepare(_activeUnit, out _achivableCells, out _achivableTargets);
+        _activeAbilty = _activeUnit.Abilities[0];        
         ShowPreview();
 
         //_line = new GameObject("Line").AddComponent<LineRenderer>();
@@ -76,6 +75,7 @@ public class Acting : PlayerState
     }
     public void ShowPreview()
     {
+        _activeAbilty.Prepare(_activeUnit, out _achivableCells, out _achivableTargets);
         ShowMoveReach();
         ShowAbiltyReach();
     }
@@ -131,9 +131,18 @@ public class Acting : PlayerState
 
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    _activeAbilty.Invoke(_activeUnit, targetCell);
-                    PlayerController.SelectState(PlayerController.Selecting);
+                    if(_activeAbilty.Invoke(_activeUnit, targetCell))
+                    {
+                        PlayerController.Battle.Grid.ClearGrid();
+                        ShowPreview();
+                    }
+                    else
+                    {
+                        PlayerController.SelectState(PlayerController.Selecting);
+                    }
                 }
+                //PlayerController.SelectState(PlayerController.Selecting);
+            
                 ShowData(targetCell);
                 _previustarget = targetCell;
                 return;
