@@ -6807,7 +6807,7 @@ MonoBehaviour:
   _health: {fileID: 2051007722}
   _size: {fileID: 1513144659}
   _abilitiesContainer: {fileID: 1171615788}
-  _abiltyButtonPrefab: {fileID: 7572413371969351763, guid: 344d4b7a82968a842bacae253ae45490, type: 3}
+  _abiltyButtonPrefab: {fileID: -8146793744978706547, guid: 344d4b7a82968a842bacae253ae45490, type: 3}
 --- !u!1 &1519923110
 GameObject:
   m_ObjectHideFlags: 0
