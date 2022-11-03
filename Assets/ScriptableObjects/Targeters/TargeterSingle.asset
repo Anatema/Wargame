@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1475946efc41bbc41bbcff09149d166a, type: 3}
   m_Name: TargeterSingle
   m_EditorClassIdentifier: 
-  actions:
+  Actions:
   - {fileID: 11400000, guid: 7657d961a28b7ae47a8df9315a63d8cd, type: 2}
+  RequredTarget: 04000000

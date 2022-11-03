@@ -14,6 +14,7 @@ public class Ability: ScriptableObject
     public bool CanTargetGround;
 
     public int Range;
+    
 
     public List<Targeter> Targeters;
 
@@ -44,9 +45,10 @@ public class Ability: ScriptableObject
         {
             Debug.Log("attack!");
 
-            InvokeAbilty(caster, target);
-
-            caster.Movement.CurrentMovingPoints = 0;
+            if(InvokeAbilty(caster, target))
+            {
+                caster.Movement.CurrentMovingPoints = 0;
+            }
             //attack
         }
         else if (avaliableTargets.Contains(target) && HexGrid.CubeDistance(target, caster.Cell) > Range)
@@ -55,9 +57,10 @@ public class Ability: ScriptableObject
 
             MoveWithinReach(grid, caster, target);
 
-            InvokeAbilty(caster, target);
-
-            caster.Movement.CurrentMovingPoints = 0;
+            if (InvokeAbilty(caster, target))
+            {
+                caster.Movement.CurrentMovingPoints = 0;
+            }
         }
         else
         {
@@ -83,20 +86,22 @@ public class Ability: ScriptableObject
         }
     }
 
-    private void InvokeAbilty(Unit caster, Cell target)
+    private bool InvokeAbilty(Unit caster, Cell target)
     {
         foreach (Targeter targeter in Targeters)
         {
-            targeter.GetTargets(target, out List<Cell> targets, out List<Cell> cellPattern);
+            targeter.GetTargets(caster, target, out List<Cell> targets, out List<Cell> cellPattern);
             foreach (Cell cell in targets)
             {
-                foreach (Action action in targeter.actions)
+                foreach (Action action in targeter.Actions)
                 {
                     action.Invoke(caster, cell);
+                    caster.IsEnded = true;
+
                 }
             }
         }
-        caster.IsEnded = true;
+        return caster.IsEnded;
     }
     //SpendMovementPoints
 
@@ -107,22 +112,34 @@ public class Ability: ScriptableObject
         List<Cell> targets = new List<Cell>();
         HexGrid grid = GameObject.FindObjectOfType<HexGrid>();
         Battle battle = GameObject.FindObjectOfType<Battle>();
-        
 
         foreach (Unit unit in battle.Units)
         {
-            List<Cell> CellsInRange = grid.CalculateReach(unit.Cell, Range, false, false);
-            foreach (Cell cell in CellsInRange)
+            foreach (Targeter targeter in Targeters)
             {
-                //Check targeter
-                if ((cellsRange.Contains(cell) || cell.GroundUnit == caster) && unit)
+                targeter.GetTargets(caster, unit.Cell, out List<Cell> returnTargets, out List<Cell> cellPattern);
+
+                List<Cell> CellsInRange = grid.CalculateReach(unit.Cell, Range, false, false);
+                foreach (Cell cell in CellsInRange)
                 {
-                    targets.Add(unit.Cell);
-                    break;
+                    foreach (Cell target in returnTargets)
+                    {
+                        if (cellsRange.Contains(cell) || cell.GroundUnit == caster)
+                        {
+                            targets.Add(target);
+                            break;
+                        }
+                    }
+                        //Check targeter
+                    /*if ((cellsRange.Contains(cell) || cell.GroundUnit == caster) && unit)
+                    {
+                        targets.Add(unit.Cell);
+                        break;
+                    }*/
                 }
             }
         }
-        return targets;
+            return targets;
     }
     
 }

@@ -97,10 +97,10 @@ public class Acting : PlayerState
         {
             if (cell.GroundUnit)
             {
-                if (cell.GroundUnit != _activeUnit)
-                {
+                //if (cell.GroundUnit != _activeUnit)
+                //{
                     cell.Higlight();
-                }
+                //}
             }
         }
     }
@@ -152,6 +152,8 @@ public class Acting : PlayerState
     }
     private void ShowData(Cell targetCell)
     {
+
+        PlayerController.DataPanel.HideData();
         string data = "";
         //data += targetCell.coordinates.ToString() + "\n";
         if (targetCell.GroundUnit != null)

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Single", menuName = "Targeter/Single")]
 public class TargeterSingle : Targeter
 {
-    public override void GetTargets(Cell targetCell, out List<Cell> targets, out List<Cell> cellPattern)
+    public override void GetTargets(Unit caster, Cell targetCell, out List<Cell> targets, out List<Cell> cellPattern)
     {
         //Define all cells in cellPattern
         cellPattern = new List<Cell>();
@@ -18,7 +18,15 @@ public class TargeterSingle : Targeter
         {
             if (target.GroundUnit)
             {
-                targets.Add(target);
+                foreach(TargetType targetType in RequredTarget)
+                {
+                    if (TargeterUtility.CheckTarget(targetType, caster, target))
+                    {
+                        Debug.Log(target.name);
+                        targets.Add(target);
+                        continue;
+                    }
+                }
             }
         }
         
