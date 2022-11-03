@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: Move
   CanMoveAndAct: 1
   CanTargetGround: 0
+  Range: 0
   Targeters: []

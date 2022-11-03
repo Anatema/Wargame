@@ -19,6 +19,10 @@ public class Waiting: PlayerState
 
     public override void EnterState()
     {
+        if (PlayerController.SelectedUnit)
+        {
+            PlayerController.DeselectUnit();
+        }
     }
 
     public override void Update()
@@ -34,19 +38,24 @@ public class Waiting: PlayerState
             if (hit.collider.GetComponent<Cell>())
             {
                 Cell cell = hit.collider.GetComponent<Cell>();
-                string data = "";
-                data += cell.coordinates.ToString() + "\n";
-                if (cell.GroundUnit != null)
-                {
-                    data += "Name :" + cell.GroundUnit.name + "\n";
-                    data += "Health :" + cell.GroundUnit.CurrentHealth + "\\" + cell.GroundUnit.MaxHealth + "\n";
-                    data += "Squad size :" + cell.GroundUnit.CurrentUnitSize + "\\" + cell.GroundUnit.MaxUnitSize + "\n";
-                }
-
+                string data = GetData(cell);
                 PlayerController.DataPanel.ShowData(data, Input.mousePosition);
                 return;
             }
         }
         PlayerController.DataPanel.HideData();
+    }
+
+    private string GetData(Cell target)
+    {
+        string data = "";
+        data += target.coordinates.ToString() + "\n";
+        if (target.GroundUnit != null)
+        {
+            data += "Name :" + target.GroundUnit.name + "\n";
+            data += "Health :" + target.GroundUnit.CurrentHealth + "\\" + target.GroundUnit.MaxHealth + "\n";
+            data += "Squad size :" + target.GroundUnit.CurrentUnitSize + "\\" + target.GroundUnit.MaxUnitSize + "\n";
+        }
+        return data;
     }
 }

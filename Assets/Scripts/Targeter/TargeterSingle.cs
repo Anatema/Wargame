@@ -7,13 +7,12 @@ public class TargeterSingle : Targeter
 {
     public override void GetTargets(Unit caster, Cell targetCell, out List<Cell> targets, out List<Cell> cellPattern)
     {
-        //Define all cells in cellPattern
-        cellPattern = new List<Cell>();
-        cellPattern.Add(targetCell);
+        //Define pattern of Cells and give fitting Cells based on target cell
+        cellPattern = GetShape(targetCell);
 
-        //Define acceptable targets from pattern
-        //for now unitys
+        //Check if cells in pattern go with the conditions
         targets = new List<Cell>();
+
         foreach (Cell target in cellPattern)
         {
             if (target.GroundUnit)
@@ -22,7 +21,6 @@ public class TargeterSingle : Targeter
                 {
                     if (TargeterUtility.CheckTarget(targetType, caster, target))
                     {
-                        Debug.Log(target.name);
                         targets.Add(target);
                         continue;
                     }
@@ -30,5 +28,11 @@ public class TargeterSingle : Targeter
             }
         }
         
+    }
+    public override List<Cell> GetShape(Cell target)
+    {
+        List<Cell>cellPattern = new List<Cell>();
+        cellPattern.Add(target);
+        return cellPattern;
     }
 }

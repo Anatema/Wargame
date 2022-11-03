@@ -7,31 +7,28 @@ public class HexGrid : MonoBehaviour
 {
 	//public MapGenerator generator;
 	public List<Cell> Cells;
-	public HexCoordinates HexCoordintaes;
-
-	void Update()
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			//HandleInput();
-		}
-	}
-
 
     public void SetGrid(List<Cell> cells)
     {
 		Cells = cells;
 	}
-	
+	public void ClearGrid()
+	{
+		foreach (Cell cell in Cells)
+		{
+			cell.SetAsNormal();
+		}
+	}
+
 	public List<Cell> GetPathWithReach(Cell startCell, Cell targetCell, int WeaponeReach)
     {
-		List<Cell> path = GameObject.FindObjectOfType<HexGrid>().CalculatePath(startCell, targetCell, true);
+		List<Cell> path = CalculatePath(startCell, targetCell, true);
 
 		if (path == null)
 		{
 			return null;
 		}
-		path.Reverse();
+		
 		List<Cell> _currentPath = new List<Cell>();
 
 		int count = 0;
@@ -40,7 +37,7 @@ public class HexGrid : MonoBehaviour
 			_currentPath.Add(cell);
 			count++;
 
-			if (HexGrid.CubeDistance(cell, targetCell) <= WeaponeReach)
+			if (CubeDistance(cell, targetCell) <= WeaponeReach)
 			{
 				break;
 			}
@@ -57,19 +54,10 @@ public class HexGrid : MonoBehaviour
 		while(openSet.Count > 0)
         {
 			Cell currentCell = openSet.RemoveFirst();
-			/*for(int i = 0; i < openSet.Count; i++)
-            {
-				if(openSet[i].FCost < currentCell.FCost || openSet[i].FCost == currentCell.FCost && openSet[i].HCost < currentCell.HCost)
-                {
-					currentCell = openSet[i];
-                }
-            }
-			openSet.Remove(currentCell);*/
 			closedSet.Add(currentCell);
 
 			if (currentCell == targetCell)
             {
-                
 				return RetracePath(startCell, targetCell);
 				//return;
             }
@@ -111,22 +99,7 @@ public class HexGrid : MonoBehaviour
 		}
 		return null;
 	}
-	public List<Cell> CalculatePath(Cell startCell, Cell targetCell, int movement, bool includeTargetUnit = false)
-	{
-		List<Cell> path = CalculatePath(startCell, targetCell, includeTargetUnit);
-		List<Cell> newPath = new List<Cell>();
-        foreach(Cell cell in path)
-        {
-			if(movement - cell.movementCost < 0)
-            {
-				break;
-            }
-			movement -= cell.movementCost;
-			newPath.Add(cell);
-
-		}
-		return newPath;
-	}
+	
 
 	private List<Cell> RetracePath(Cell startCell, Cell endCell)
     {
@@ -137,17 +110,9 @@ public class HexGrid : MonoBehaviour
 			path.Add(currentCell);
 			currentCell = currentCell.parent;
         }
-
+		path.Reverse();
 		return path;
-    }
-	public void ClearGrid()
-    {
-		foreach (Cell cell in Cells)
-		{
-			cell.SetAsNormal();
-		}
-	}
-    
+    }    
 	public List<Cell> CalculateReach(Cell startCell, int movement, bool veighed = true, bool countObstacles = true)
 	{
 		//ClearGrid();
@@ -193,25 +158,8 @@ public class HexGrid : MonoBehaviour
         }
 		return visitedCells.Keys.ToList();
 	}
-	private void CalculateLine(HexCoordinates coordinates)
-    {
-		if (coordinates == HexCoordintaes)
-        {
-			return;
-        }
-		int N = CubeDistance(HexCoordintaes, coordinates);
+	
 
-		for (int i = 0; i <= N; i++)
-        {
-			Vector3 vector = new Vector3();
-			vector.x = HexCoordintaes.X + (coordinates.X - HexCoordintaes.X) * 1.0f / N * i;
-			vector.y = HexCoordintaes.Y + (coordinates.Y - HexCoordintaes.Y) * 1.0f / N * i;
-			vector.z = -vector.x - vector.y;
-
-			GetCellByCoordintes(HexCoordinates.RoundHex(vector)).Higlight();
-		}
-
-	}
 	public Cell GetCellByCoordintes(HexCoordinates coordinates)
     {
 		Cell cell;

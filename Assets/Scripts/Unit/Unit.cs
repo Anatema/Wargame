@@ -36,7 +36,7 @@ public class Unit : MonoBehaviour
 
     public bool IsEnded;
 
-    //private List<Trait> _traits;
+    //private List<Properties> _traits;
     //private GameObject _actior / private Actor _actor;
 
 
@@ -44,10 +44,6 @@ public class Unit : MonoBehaviour
     public void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
-    }
-    public void Update()
-    {
-        
     }
     public void Instantiate(Cell cell)
     {

@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     public LineRenderer LinePrefab;
-
+    public UnitUiPanel UnitUiPanel;
     public void Awake()
     {
         _waiting = new Waiting(this);
@@ -41,6 +41,16 @@ public class PlayerController : MonoBehaviour
         _playerState.Update();
     }
 
+    public void SelectUnit(Unit unit)
+    {
+        UnitUiPanel.RefreshUnitUI(unit);
+        SelectedUnit = unit;
+    }
+    public void DeselectUnit()
+    {
+        SelectedUnit.Unactive();
+        SelectedUnit = null;
+    }
     public void SetAsSelecting()
     {
         SelectState(Selecting);

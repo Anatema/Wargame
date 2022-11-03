@@ -25,7 +25,6 @@ public class CellChanger : MonoBehaviour
             GetComponent<Cell>().movementCost = index * 2;
 
         }
-
     }
 
 }

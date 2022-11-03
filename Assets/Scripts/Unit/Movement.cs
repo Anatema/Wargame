@@ -16,7 +16,7 @@ public class Movement
         _unit = unit;
         Cell = cell;
         Cell.SetUnit(unit);
-        unit.transform.position = cell.transform.position + Vector3.up*3;
+        unit.transform.position = cell.transform.position + Vector3.up * 6f;
     }
     
     public void Move(List<Cell> path)
@@ -28,11 +28,10 @@ public class Movement
     {
         foreach (Cell cell in path)
         {
-            Debug.Log(cell.coordinates);
             Cell.RemoveGroundUnit();
             Cell = cell;
             Cell.SetUnit(_unit);
-            _unit.transform.position = cell.transform.position + Vector3.up * 3;
+            _unit.transform.position = cell.transform.position + Vector3.up * 6f;
 
             CurrentMovingPoints -= cell.movementCost;
         }

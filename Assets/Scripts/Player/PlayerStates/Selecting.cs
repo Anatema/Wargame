@@ -25,18 +25,15 @@ public class Selecting : PlayerState
             if (hit.collider.GetComponent<Cell>())
             {
                 Cell cell = hit.collider.GetComponent<Cell>();
-                string data = "";
+                string data = GetData(cell);
                 //data += targetCell.coordinates.ToString() + "\n";
                 if (cell.GroundUnit != null)
                 {
-                    data += "Name :" + cell.GroundUnit.name + "\n";
-                    data += "Health :" + cell.GroundUnit.CurrentHealth + "\\" + cell.GroundUnit.MaxHealth + "\n";
-                    data += "Squad size :" + cell.GroundUnit.CurrentUnitSize + "\\" + cell.GroundUnit.MaxUnitSize + "\n";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         if (!cell.GroundUnit.IsEnded)
                         {
-                            PlayerController.SelectedUnit = cell.GroundUnit;
+                            PlayerController.SelectUnit(cell.GroundUnit);
                             PlayerController.SelectState(PlayerController.Acting);
                             return;
                         }
@@ -49,13 +46,28 @@ public class Selecting : PlayerState
         }
         PlayerController.DataPanel.HideData();
     }
+    private string GetData(Cell target)
+    {
+        string data = "";
+        data += target.coordinates.ToString() + "\n";
+        if (target.GroundUnit != null)
+        {
+            data += "Name :" + target.GroundUnit.name + "\n";
+            data += "Health :" + target.GroundUnit.CurrentHealth + "\\" + target.GroundUnit.MaxHealth + "\n";
+            data += "Squad size :" + target.GroundUnit.CurrentUnitSize + "\\" + target.GroundUnit.MaxUnitSize + "\n";
+        }
+        return data;
+    }
 
     public override void EndState()
     {
         PlayerController.DataPanel.HideData();
     }
-
     public override void EnterState()
     {
+        if (PlayerController.SelectedUnit)
+        {
+            PlayerController.DeselectUnit();
+        }
     }
 }

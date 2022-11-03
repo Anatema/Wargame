@@ -18,9 +18,9 @@ public class Ability: ScriptableObject
 
     public List<Targeter> Targeters;
 
-    public void Prepare(Unit caster, out List<Cell> achivableCells, out List<Cell> achivableTargets)
+    public void Prepare(Unit caster, out List<Cell> achivableTargets)
     {
-        achivableCells = GetAchiavbleCells(caster);
+        List<Cell> achivableCells = GetAchiavbleCells(caster);
         achivableTargets = GetAvaliableTargets(achivableCells, caster);
     }
 
@@ -74,7 +74,6 @@ public class Ability: ScriptableObject
     {
         Debug.Log("Move!");
         List<Cell> path = grid.CalculatePath(caster.Cell, target);
-        path.Reverse();
         caster.Movement.Move(path);
     }
     private void MoveWithinReach(HexGrid grid, Unit caster, Cell target)

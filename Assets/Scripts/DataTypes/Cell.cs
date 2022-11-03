@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour, IHeapItem<Cell>
 {
     public HexGrid Grid;
-    public bool IsReachable;
-    public HexCoordinates coordinates;    
-
     public List<Cell> Neighbors;
     public Color OldColor;
+    
+    public HexCoordinates coordinates;    
+    public bool IsReachable;
 
     public int GCost;
     public int HCost;
@@ -19,17 +19,29 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     public int movementCost;
     private int _coverLevel;
     private int _obcureLevel;
+
     private GroundType _groundType;
     public int FCost => GCost + HCost;
     private int _heapIndex;
 
-
     [SerializeField]
     private Unit _groundUnit;
     public Unit GroundUnit => _groundUnit;
+
     public void Awake()
     {
         OldColor = GetComponent<MeshRenderer>().material.color;
+    }
+    public int HeapIndex
+    {
+        get 
+        {
+            return _heapIndex;
+        }
+        set 
+        {
+            _heapIndex = value;
+        }
     }
 
     public void SetUnit(Unit unit)
@@ -44,35 +56,23 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
             _groundUnit = null;
         }
     }
+
+    //Actor
     public void HiglightBorder()
     {
         GetComponent<MeshRenderer>().material.color = Color.blue;
     }
+    //Actor
     public void Higlight()
     {
         GetComponent<MeshRenderer>().material.color = Color.red;
-        //StartCoroutine(GetColorBack());
     }
+    //Actor
     public void SetAsNormal()
     {
         GetComponent<MeshRenderer>().material.color = OldColor;
     }
-    public IEnumerator GetColorBack()
-    {
-        yield return new WaitForSeconds(0.2f);
-        //GetComponent<MeshRenderer>().material.color = OldColor;
-    }
-    public int HeapIndex
-    {
-        get 
-        {
-            return _heapIndex;
-        }
-        set 
-        {
-            _heapIndex = value;
-        }
-    }
+    
     public int CompareTo(Cell cellToCompare)
     {
         int compare = FCost.CompareTo(cellToCompare.FCost);
