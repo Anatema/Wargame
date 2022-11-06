@@ -26,7 +26,11 @@ public class Ability: ScriptableObject
 
     private List<Cell> GetAchiavbleCells(Unit caster)
     {
-        return caster.Movement.GetReach();
+        if (CanMoveAndAct && !CanTargetGround)
+        {
+            return caster.Movement.GetReach();
+        }
+        else return new List<Cell>() { caster.Cell };
     }
 
     
@@ -138,7 +142,7 @@ public class Ability: ScriptableObject
                 }
             }
         }
-            return targets;
+        return targets;
     }
     
 }

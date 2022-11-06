@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 [SerializeField]
@@ -65,6 +66,15 @@ public class Acting : PlayerState
         _attackLine.startColor = Color.red;
     }
 
+    public void ChangeSelectedAbilty(int index)
+    {
+        if (_activeUnit.Abilities.Count > index && index >= 0)
+        {
+            _activeAbilty = _activeUnit.Abilities[index];
+            ShowPreview();
+        }
+    }
+
     private void SetActiveUnit()
     {
         PlayerController.SelectedUnit.Active();
@@ -72,6 +82,7 @@ public class Acting : PlayerState
     }
     private void ShowPreview()
     {
+        PlayerController.Battle.Grid.ClearGrid();
         _activeAbilty.Prepare(_activeUnit, out _achivableTargets);
         ShowMoveReach();
         ShowAbiltyReach();
@@ -124,7 +135,8 @@ public class Acting : PlayerState
             {
                 return;
             }
-            
+
+            ShowAbiltyUseShape(targetCell);
             ChosePreviewLine(targetCell);
             ShowData(targetCell);
             ProcessAction(targetCell);
@@ -135,7 +147,7 @@ public class Acting : PlayerState
 
     private void ProcessAction(Cell targetCell)
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && EventSystem.current.IsPointerOverGameObject() == false)            
         {
             if (_activeAbilty.Invoke(_activeUnit, targetCell))
             {
@@ -157,6 +169,14 @@ public class Acting : PlayerState
         else
         {
             ShowLine(targetCell);
+        }
+    }
+    private void ShowAbiltyUseShape(Cell targetCell)
+    {
+        PlayerController.RemovePreview();
+        foreach (Targeter targeter in _activeAbilty.Targeters)
+        {
+            PlayerController.ShowPreview(targeter.GetShape(targetCell));
         }
     }
 
@@ -243,8 +263,5 @@ public class Acting : PlayerState
         }
 
     }   
-
-   
-    
 }
 

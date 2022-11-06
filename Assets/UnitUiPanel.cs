@@ -16,6 +16,9 @@ public class UnitUiPanel : MonoBehaviour
     private Transform _abilitiesContainer;
     [SerializeField]
     private AbilityButton _abiltyButtonPrefab;
+    [SerializeField]
+    private PlayerController _playerController;
+
     public void RefreshUnitUI(Unit unit)
     {
         _name.text = unit.name;
@@ -39,10 +42,20 @@ public class UnitUiPanel : MonoBehaviour
             Destroy(child.gameObject);
         }
 
+        int count = 0;
         foreach(Ability ability in unit.Abilities)
         {
-            Instantiate(_abiltyButtonPrefab, _abilitiesContainer).Text.text = ability.name;
+            int index = count;
+            AbilityButton button = Instantiate(_abiltyButtonPrefab, _abilitiesContainer);
+            button.SetButton(ability.name);
+            button.Button.onClick.AddListener(() => AbiltyIndexChanged(index));
+            count++;
         }
     }
+    private void AbiltyIndexChanged(int index)
+    {
+        _playerController.ChangeSelectedAbility(index);
+    }
+
 
 }

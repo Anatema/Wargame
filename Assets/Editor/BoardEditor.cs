@@ -305,6 +305,12 @@ public class BoardEditor : EditorWindow
         {
             DestroyImmediate(grid.gameObject);
         }
+        if (!FindObjectOfType<Battle>())
+        {
+            GameObject battle = new GameObject("Battle");
+            battle.AddComponent<Battle>().Units = new List<Unit>();
+            EditorUtility.SetDirty(battle);
+        }
 
         FindObjectOfType<Battle>().Grid = null;
     }
@@ -383,8 +389,9 @@ public class BoardEditor : EditorWindow
         {
             if (unit)
             {
-                DestroyImmediate(unit);
+                DestroyImmediate(unit.gameObject);
             }
         }
+        battle.Units = new List<Unit>();
     }
 }
