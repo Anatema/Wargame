@@ -39,8 +39,12 @@ public class Movement
    
     public List<Cell> GetReach()
     {
-        
-        return Cell.Grid.CalculateReach(Cell, CurrentMovingPoints);
+        List<Cell> list = Cell.Grid.CalculateReach(Cell, CurrentMovingPoints);
+        if (!list.Contains(_unit.Cell))
+        {
+            list.Add(_unit.Cell);
+        }
+        return list;
     }
     public void RemoveCell()
     {

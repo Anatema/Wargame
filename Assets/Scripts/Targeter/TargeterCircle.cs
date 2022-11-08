@@ -16,19 +16,28 @@ public class TargeterCircle : Targeter
 
         foreach (Cell target in cellPattern)
         {
-            if (target.GroundUnit)
+            foreach(TargetType targetType in RequredTarget)
             {
-                foreach(TargetType targetType in RequredTarget)
+                if (TargeterUtility.CheckTarget(targetType, caster, target))
                 {
-                    if (TargeterUtility.CheckTarget(targetType, caster, target))
-                    {
-                        targets.Add(target);
-                        continue;
-                    }
+                    targets.Add(target);
+                    continue;
                 }
             }
         }
         
+    }
+
+    public override bool IsTarget(Unit caster, Cell targetCell)
+    {
+        foreach (TargetType targetType in RequredTarget)
+        {
+            if (TargeterUtility.CheckTarget(targetType, caster, targetCell))
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public override List<Cell> GetShape(Cell target)
     {
@@ -62,4 +71,6 @@ public class TargeterCircle : Targeter
 
         return closedSet;
     }
+
+   
 }

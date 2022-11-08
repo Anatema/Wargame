@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a3a12973924d748a84dbd24c948516, type: 3}
-  m_Name: CircleAttack
+  m_Script: {fileID: 11500000, guid: 6a65268ead0c06c46a6beb3d1cfd7d8f, type: 3}
+  m_Name: GroundCircle
   m_EditorClassIdentifier: 
-  Name: CircleAttack
-  CanMoveAndAct: 1
-  Range: 2
-  Targeters:
-  - {fileID: 11400000, guid: 66a26fc0b73f06d46973c8e7bc156560, type: 2}
+  Actions:
+  - {fileID: 11400000, guid: 7657d961a28b7ae47a8df9315a63d8cd, type: 2}
+  RequredTarget: 04000000
+  Size: 1

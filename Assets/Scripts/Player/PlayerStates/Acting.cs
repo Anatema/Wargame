@@ -83,14 +83,63 @@ public class Acting : PlayerState
     private void ShowPreview()
     {
         PlayerController.Battle.Grid.ClearGrid();
-        _activeAbilty.Prepare(_activeUnit, out _achivableTargets);
+        //_activeAbilty.Prepare(_activeUnit, out _achivableTargets);
         ShowMoveReach();
+        GetAchivableTargets();
         ShowAbiltyReach();
+    }
+
+    private void GetAchivableTargets()
+    {
+        _achivableTargets = new List<Cell>();
+        List<Cell> possibleTargets = new List<Cell> ();
+        
+        if (_activeAbilty.CanMoveAndAct)
+        {
+            foreach(Unit unit in PlayerController.Battle.Units)
+            {
+                List<Cell> cellsInUnitRange = PlayerController.Battle.Grid.CalculateReach(unit.Cell, _activeAbilty.Range, false, false);
+                foreach (Cell cell in cellsInUnitRange)
+                {
+                    if (_achivableCells.Contains(cell) && !possibleTargets.Contains(cell))
+                    {
+                        possibleTargets.Add(unit.Cell);
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            possibleTargets = PlayerController.Battle.Grid.CalculateReach(_activeUnit.Cell, _activeAbilty.Range, false, false);
+            if (!possibleTargets.Contains(_activeUnit.Cell))
+            {
+                possibleTargets.Add(_activeUnit.Cell);
+            }
+        }
+
+        //check for validity
+        List<Cell> validTargets = new List<Cell> ();
+        foreach(Cell cell in possibleTargets)
+        {
+            foreach(Targeter targeter in _activeAbilty.Targeters)
+            {
+                if(targeter.IsTarget(_activeUnit, cell))
+                {
+                    validTargets.Add(cell);
+                    break;
+                }
+            }
+        }
+        _achivableTargets = validTargets;
+
+
+        
     }
     private void ShowMoveReach()
     {
         _achivableCells = new List<Cell>();
-        if (_activeAbilty.CanMoveAndAct && !_activeAbilty.CanTargetGround)
+        if (_activeAbilty.CanMoveAndAct)
         {
             ShowReach();
         }
@@ -101,22 +150,18 @@ public class Acting : PlayerState
     }
     private void ShowReach()
     {
-        foreach (Cell cell in _activeUnit.Movement.GetReach())
+        _achivableCells = _activeUnit.Movement.GetReach();
+        foreach (Cell cell in _achivableCells)
         {
             cell.HiglightBorder();
         }
+        _activeUnit.Cell.SetAsNormal();
     }
     private void ShowAbiltyReach()
     {        
         foreach (Cell cell in _achivableTargets)
         {
-            if (cell.GroundUnit)
-            {
-                //if (cell.GroundUnit != _activeUnit)
-                //{
-                    cell.Higlight();
-                //}
-            }
+            cell.Higlight();
         }
     }
 
@@ -174,9 +219,12 @@ public class Acting : PlayerState
     private void ShowAbiltyUseShape(Cell targetCell)
     {
         PlayerController.RemovePreview();
-        foreach (Targeter targeter in _activeAbilty.Targeters)
+        if (_achivableTargets.Contains(targetCell))
         {
-            PlayerController.ShowPreview(targeter.GetShape(targetCell));
+            foreach (Targeter targeter in _activeAbilty.Targeters)
+            {
+                PlayerController.ShowPreview(targeter.GetShape(targetCell));
+            }
         }
     }
 
@@ -232,10 +280,6 @@ public class Acting : PlayerState
             return;
         }
 
-        if (!targetCell.GroundUnit)
-        {
-            return;
-        }
         int count = 1;
 
         _attackLine.positionCount = 2;

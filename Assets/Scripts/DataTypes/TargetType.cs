@@ -8,5 +8,6 @@ public enum TargetType
     Self,
     Other,
     Ally,
-    Enemy    
+    Enemy,
+    Ground
 }

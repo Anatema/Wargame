@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92a3a12973924d748a84dbd24c948516, type: 3}
-  m_Name: CircleAttack
+  m_Name: GroundAttack
   m_EditorClassIdentifier: 
   Name: CircleAttack
-  CanMoveAndAct: 1
+  CanMoveAndAct: 0
   Range: 2
   Targeters:
-  - {fileID: 11400000, guid: 66a26fc0b73f06d46973c8e7bc156560, type: 2}
+  - {fileID: 11400000, guid: a68b22a42a5942242ad644975dfe1283, type: 2}

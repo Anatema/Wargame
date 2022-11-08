@@ -23,6 +23,8 @@ public abstract class Targeter : ScriptableObject
     //Return cells that can be targeted
     public abstract void GetTargets(Unit caster, Cell targetCell, out List<Cell> targets, out List<Cell> cellPattern);
 
+    public abstract bool IsTarget(Unit caster, Cell targetCell);
+
     //Return shape method
     public abstract List<Cell> GetShape(Cell target);
     //if can target ground

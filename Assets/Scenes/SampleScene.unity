@@ -22595,7 +22595,7 @@ MonoBehaviour:
     _currentHealth: 100
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
-  - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
+  - {fileID: 11400000, guid: 3ce88823e7182d64fba7069a4184caa6, type: 2}
   - {fileID: 11400000, guid: b6b7607380aa7f04981d2476d3c1664e, type: 2}
   - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
@@ -27983,7 +27983,7 @@ MonoBehaviour:
     _maxHealth: 0
     _currentHealth: 0
   Abilities: []
-  PlayerIndex: 1
+  PlayerIndex: 0
   _maxUnitSize: 0
   _currentUnitSize: 0
   IsEnded: 0

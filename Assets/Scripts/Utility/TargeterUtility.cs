@@ -17,12 +17,17 @@ public static class TargeterUtility
             case TargetType.Ally:
                 return CheckAlly(caster, target);
             case TargetType.Enemy:
-                return !CheckAlly(caster, target); ;
+                return !CheckAlly(caster, target);
+            case TargetType.Ground:
+                return CheckGround(target);
             default:
                 return false;
         }
     }
-
+    private static bool CheckGround(Cell target)
+    {
+        return !target.GroundUnit;
+    }
     private static bool CheckSelf(Unit caster, Cell target)
     {
         if (target.GroundUnit && caster == target.GroundUnit)

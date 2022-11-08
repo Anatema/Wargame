@@ -29,6 +29,17 @@ public class TargeterSingle : Targeter
         }
         
     }
+    public override bool IsTarget(Unit caster, Cell targetCell)
+    {
+        foreach (TargetType targetType in RequredTarget)
+        {
+            if (TargeterUtility.CheckTarget(targetType, caster, targetCell))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public override List<Cell> GetShape(Cell target)
     {
         List<Cell>cellPattern = new List<Cell>();

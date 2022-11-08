@@ -11,22 +11,21 @@ public class Ability: ScriptableObject
     public PlayerState State;
 
     public bool CanMoveAndAct;
-    public bool CanTargetGround;
 
     public int Range;
     
 
     public List<Targeter> Targeters;
 
-    public void Prepare(Unit caster, out List<Cell> achivableTargets)
+    public void Prepare(Unit caster)
     {
-        List<Cell> achivableCells = GetAchiavbleCells(caster);
-        achivableTargets = GetAvaliableTargets(achivableCells, caster);
+        //List<Cell> achivableCells = GetAchiavbleCells(caster);
+        //achivableTargets = GetAvaliableTargets(achivableCells, caster);
     }
 
     private List<Cell> GetAchiavbleCells(Unit caster)
     {
-        if (CanMoveAndAct && !CanTargetGround)
+        if (CanMoveAndAct)
         {
             return caster.Movement.GetReach();
         }
@@ -122,8 +121,8 @@ public class Ability: ScriptableObject
             {
                 targeter.GetTargets(caster, unit.Cell, out List<Cell> returnTargets, out List<Cell> cellPattern);
 
-                List<Cell> CellsInRange = grid.CalculateReach(unit.Cell, Range, false, false);
-                foreach (Cell cell in CellsInRange)
+                List<Cell> cellsInRange = grid.CalculateReach(unit.Cell, Range, false, false);
+                foreach (Cell cell in cellsInRange)
                 {
                     foreach (Cell target in returnTargets)
                     {
