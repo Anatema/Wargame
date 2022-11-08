@@ -36,7 +36,11 @@ public class Movement
             CurrentMovingPoints -= cell.movementCost;
         }
     }
-   
+    
+    public void RecoverMP()
+    {
+        CurrentMovingPoints = MaxMovingPoints;
+    }
     public List<Cell> GetReach()
     {
         List<Cell> list = Cell.Grid.CalculateReach(Cell, CurrentMovingPoints);

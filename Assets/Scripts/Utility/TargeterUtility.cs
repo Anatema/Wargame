@@ -18,8 +18,6 @@ public static class TargeterUtility
                 return CheckAlly(caster, target);
             case TargetType.Enemy:
                 return !CheckAlly(caster, target);
-            case TargetType.Ground:
-                return CheckGround(target);
             default:
                 return false;
         }
@@ -30,7 +28,7 @@ public static class TargeterUtility
     }
     private static bool CheckSelf(Unit caster, Cell target)
     {
-        if (target.GroundUnit && caster == target.GroundUnit)
+        if (caster == target.GroundUnit)
         {
             return true;
         }
@@ -38,7 +36,7 @@ public static class TargeterUtility
     }
     private static bool CheckAlly(Unit caster, Cell target)
     {
-        if (target.GroundUnit && caster.PlayerIndex == target.GroundUnit.PlayerIndex)
+        if (caster.PlayerIndex == target.GroundUnit.PlayerIndex)
         {
             return true;
         }

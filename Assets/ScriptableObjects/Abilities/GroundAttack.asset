@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: CircleAttack
   CanMoveAndAct: 0
-  Range: 2
+  Range: 3
   Targeters:
-  - {fileID: 11400000, guid: a68b22a42a5942242ad644975dfe1283, type: 2}
+  - {fileID: 11400000, guid: 7d0ac62d67a979a46b225adf197a11bc, type: 2}
+  - {fileID: 11400000, guid: 66a26fc0b73f06d46973c8e7bc156560, type: 2}

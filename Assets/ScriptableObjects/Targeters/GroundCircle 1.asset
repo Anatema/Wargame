@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a65268ead0c06c46a6beb3d1cfd7d8f, type: 3}
-  m_Name: GroundCircle
+  m_Script: {fileID: 11500000, guid: 43df7923122b0414e9cdc39f83f076c9, type: 3}
+  m_Name: GroundCircle 1
   m_EditorClassIdentifier: 
-  Actions:
-  - {fileID: 11400000, guid: 7657d961a28b7ae47a8df9315a63d8cd, type: 2}
-  RequredTarget: 04000000
+  Actions: []
+  RequredTarget: 
   Size: 1

@@ -87,4 +87,9 @@ public class PlayerController : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    public void NextTurn()
+    {
+        Battle.NextTurn();
+    }
 }

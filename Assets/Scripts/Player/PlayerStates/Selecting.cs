@@ -31,7 +31,7 @@ public class Selecting : PlayerState
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        if (!cell.GroundUnit.IsEnded)
+                        if (!cell.GroundUnit.IsEnded && cell.GroundUnit.PlayerIndex == PlayerController.Battle.CurrentPlayer)
                         {
                             PlayerController.SelectUnit(cell.GroundUnit);
                             PlayerController.SelectState(PlayerController.Acting);

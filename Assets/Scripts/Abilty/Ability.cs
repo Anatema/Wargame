@@ -95,6 +95,7 @@ public class Ability: ScriptableObject
             targeter.GetTargets(caster, target, out List<Cell> targets, out List<Cell> cellPattern);
             foreach (Cell cell in targets)
             {
+                cell.GetComponent<MeshRenderer>().materials[0].color = Color.black;
                 foreach (Action action in targeter.Actions)
                 {
                     action.Invoke(caster, cell);

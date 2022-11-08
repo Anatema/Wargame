@@ -55,7 +55,7 @@ public class Acting : PlayerState
 
         if (_activeUnit.Abilities.Count <= 0)
         {
-            PlayerController.SelectState(PlayerController.Waiting);
+            PlayerController.SelectState(PlayerController.Selecting);
             return;
         }
         _activeAbilty = _activeUnit.Abilities[0];        

@@ -40,7 +40,11 @@ public class Unit : MonoBehaviour
     //private GameObject _actior / private Actor _actor;
 
 
-
+    public void RecoverUnit()
+    {
+        IsEnded = false;
+        Movement.RecoverMP();
+    }
     public void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
