@@ -85,7 +85,7 @@ public class Acting : PlayerState
         PlayerController.Battle.Grid.ClearGrid();
         //_activeAbilty.Prepare(_activeUnit, out _achivableTargets);
         ShowMoveReach();
-        GetAchivableTargets();
+        _achivableTargets = _activeAbilty.GetAchivableTargets(_achivableCells, _activeUnit);
         ShowAbiltyReach();
     }
 
@@ -221,9 +221,17 @@ public class Acting : PlayerState
         PlayerController.RemovePreview();
         if (_achivableTargets.Contains(targetCell))
         {
+            List<Cell> cellsToHiglight = new List<Cell>();
             foreach (Targeter targeter in _activeAbilty.Targeters)
             {
-                PlayerController.ShowPreview(targeter.GetShape(targetCell));
+                foreach(Cell cell in targeter.GetShape(targetCell))
+                {
+                    if (!cellsToHiglight.Contains(cell))
+                    {
+                        cellsToHiglight.Add(cell);
+                        PlayerController.ShowPreview(cell);
+                    }
+                }
             }
         }
     }

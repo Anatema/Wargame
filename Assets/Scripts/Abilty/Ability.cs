@@ -37,7 +37,7 @@ public class Ability: ScriptableObject
     {
         HexGrid grid = GameObject.FindObjectOfType<HexGrid>();
         List<Cell> avaliableCells = GetAchiavbleCells(caster);
-        List<Cell> avaliableTargets = GetAvaliableTargets(avaliableCells, caster);
+        List<Cell> avaliableTargets = GetAchivableTargets(avaliableCells, caster);
 
 
         if (target.GroundUnit == null && avaliableCells.Contains(target))
@@ -107,42 +107,52 @@ public class Ability: ScriptableObject
         return caster.IsEnded;
     }
     //SpendMovementPoints
-
-    public List<Cell> GetAvaliableTargets(List<Cell> cellsRange, Unit caster)
+    public List<Cell> GetAchivableTargets(List<Cell> achivableCells, Unit caster)
     {
-        //HERE I CHECK TARGETERS
-
-        List<Cell> targets = new List<Cell>();
+        List<Cell> possibleTargets = new List<Cell>();
         HexGrid grid = GameObject.FindObjectOfType<HexGrid>();
         Battle battle = GameObject.FindObjectOfType<Battle>();
 
-        foreach (Unit unit in battle.Units)
+        if (CanMoveAndAct)
         {
-            foreach (Targeter targeter in Targeters)
+            foreach (Unit unit in battle.Units)
             {
-                targeter.GetTargets(caster, unit.Cell, out List<Cell> returnTargets, out List<Cell> cellPattern);
-
-                List<Cell> cellsInRange = grid.CalculateReach(unit.Cell, Range, false, false);
-                foreach (Cell cell in cellsInRange)
+                List<Cell> cellsInUnitRange = grid.CalculateReach(unit.Cell, Range, false, false);
+                foreach (Cell cell in cellsInUnitRange)
                 {
-                    foreach (Cell target in returnTargets)
+                    if (achivableCells.Contains(cell) && !possibleTargets.Contains(cell))
                     {
-                        if (cellsRange.Contains(cell) || cell.GroundUnit == caster)
-                        {
-                            targets.Add(target);
-                            break;
-                        }
-                    }
-                        //Check targeter
-                    /*if ((cellsRange.Contains(cell) || cell.GroundUnit == caster) && unit)
-                    {
-                        targets.Add(unit.Cell);
+                        possibleTargets.Add(unit.Cell);
                         break;
-                    }*/
+                    }
                 }
             }
         }
-        return targets;
+        else
+        {
+            possibleTargets = grid.CalculateReach(caster.Cell, Range, false, false);
+            if (!possibleTargets.Contains(caster.Cell))
+            {
+                possibleTargets.Add(caster.Cell);
+            }
+        }
+
+        //check for validity
+        List<Cell> validTargets = new List<Cell>();
+        foreach (Cell cell in possibleTargets)
+        {
+            foreach (Targeter targeter in Targeters)
+            {
+                if (targeter.IsTarget(caster, cell))
+                {
+                    validTargets.Add(cell);
+                    break;
+                }
+            }
+        }
+        return validTargets;
+
+
+
     }
-    
 }

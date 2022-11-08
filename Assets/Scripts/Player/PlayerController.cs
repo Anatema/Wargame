@@ -73,12 +73,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ShowPreview(List<Cell> previewShape)
+    public void ShowPreview(Cell cell)
     {
-        foreach(Cell cell in previewShape)
-        {
-            Instantiate(PreviewTilePrefab, cell.transform.position + new Vector3(0, 12, 0), cell.transform.rotation, transform);
-        }
+        Instantiate(PreviewTilePrefab, cell.transform.position + new Vector3(0, 12, 0), cell.transform.rotation, transform);
     }
     public void RemovePreview()
     {
