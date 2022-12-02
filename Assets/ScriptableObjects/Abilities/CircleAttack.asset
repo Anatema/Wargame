@@ -17,3 +17,4 @@ MonoBehaviour:
   Range: 2
   Targeters:
   - {fileID: 11400000, guid: 66a26fc0b73f06d46973c8e7bc156560, type: 2}
+  Icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}

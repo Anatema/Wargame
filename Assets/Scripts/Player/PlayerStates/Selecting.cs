@@ -61,6 +61,7 @@ public class Selecting : PlayerState
 
     public override void EndState()
     {
+        PlayerController.Battle.Grid.ClearGrid();
         PlayerController.DataPanel.HideData();
     }
     public override void EnterState()
@@ -68,6 +69,18 @@ public class Selecting : PlayerState
         if (PlayerController.SelectedUnit)
         {
             PlayerController.DeselectUnit();
+        }
+        HiglightUnits();
+    }
+
+    private void HiglightUnits()
+    {
+        foreach(Unit unit in PlayerController.Battle.Units)
+        {
+            if(unit.PlayerIndex == PlayerController.Battle.CurrentPlayer && !unit.IsEnded)
+            {
+                unit.Cell.Higlight();
+            }
         }
     }
 }

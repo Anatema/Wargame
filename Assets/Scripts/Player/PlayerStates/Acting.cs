@@ -28,6 +28,7 @@ public class Acting : PlayerState
     }
     public override void EndState()
     {
+        PlayerController.UnitUiPanel.ClearButtons();
         if (PlayerController.SelectedUnit)
         {
             PlayerController.DeselectUnit();
@@ -58,7 +59,8 @@ public class Acting : PlayerState
             PlayerController.SelectState(PlayerController.Selecting);
             return;
         }
-        _activeAbilty = _activeUnit.Abilities[0];        
+        _activeAbilty = _activeUnit.Abilities[0];
+        PlayerController.UnitUiPanel.AbiltyIndexChanged(0);
         ShowPreview();
 
         _line = GameObject.Instantiate(PlayerController.LinePrefab);

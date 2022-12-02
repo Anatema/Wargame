@@ -7,22 +7,20 @@ using UnityEngine;
 public class Ability: ScriptableObject
 {
     public string Name;
-
     public PlayerState State;
-
     public bool CanMoveAndAct;
-
-    public int Range;
-    
+    public int Range;    
 
     public List<Targeter> Targeters;
+
+    public Sprite Icon;
+
 
     public void Prepare(Unit caster)
     {
         //List<Cell> achivableCells = GetAchiavbleCells(caster);
         //achivableTargets = GetAvaliableTargets(achivableCells, caster);
     }
-
     private List<Cell> GetAchiavbleCells(Unit caster)
     {
         if (CanMoveAndAct)
@@ -31,8 +29,6 @@ public class Ability: ScriptableObject
         }
         else return new List<Cell>() { caster.Cell };
     }
-
-    
     public bool Invoke(Unit caster, Cell target)
     {
         HexGrid grid = GameObject.FindObjectOfType<HexGrid>();

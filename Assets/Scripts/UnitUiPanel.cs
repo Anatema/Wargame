@@ -19,6 +19,8 @@ public class UnitUiPanel : MonoBehaviour
     [SerializeField]
     private PlayerController _playerController;
 
+    private List<AbilityButton> _abilityButtons = new List<AbilityButton>();
+
     public void RefreshUnitUI(Unit unit)
     {
         _name.text = unit.name;
@@ -37,7 +39,8 @@ public class UnitUiPanel : MonoBehaviour
 
     public void SetAbilites(Unit unit)
     {
-        foreach(Transform child in _abilitiesContainer)
+        _abilityButtons = new List<AbilityButton>();
+        foreach (Transform child in _abilitiesContainer)
         {
             Destroy(child.gameObject);
         }
@@ -47,14 +50,29 @@ public class UnitUiPanel : MonoBehaviour
         {
             int index = count;
             AbilityButton button = Instantiate(_abiltyButtonPrefab, _abilitiesContainer);
-            button.SetButton(ability.name);
+            button.SetButton(ability.name, ability.Icon);
             button.Button.onClick.AddListener(() => AbiltyIndexChanged(index));
+            _abilityButtons.Add(button);
             count++;
         }
     }
-    private void AbiltyIndexChanged(int index)
+
+    public void ClearButtons()
+    {
+        _abilityButtons = new List<AbilityButton>();
+        foreach (Transform child in _abilitiesContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+    public void AbiltyIndexChanged(int index)
     {
         _playerController.ChangeSelectedAbility(index);
+        foreach(AbilityButton button in _abilityButtons)
+        {
+            button.SetUnactive();
+        }
+        _abilityButtons[index].SetActive();
     }
 
 

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Move
   CanMoveAndAct: 1
-  CanTargetGround: 0
   Range: 0
   Targeters: []
+  Icon: {fileID: 21300000, guid: c46be55a65cb30e44b7c89e3c0d531da, type: 3}

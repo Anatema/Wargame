@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6993964246062026484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -43.30127, y: 0, z: -75}
-  m_LocalScale: {x: 16, y: 16, z: 16}
+  m_LocalScale: {x: 17, y: 17, z: 17}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -114,17 +114,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d585baebd766f46b18e024fa76ef5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsReachable: 1
+  Grid: {fileID: 0}
+  Neighbors: []
+  OldColor: {r: 0, g: 0, b: 0, a: 0}
   coordinates:
     _x: 0
     _z: -5
-  Neighbors: []
-  OldColor: {r: 0, g: 0, b: 0, a: 0}
+  IsReachable: 1
   GCost: 0
   HCost: 0
   parent: {fileID: 0}
   movementCost: 4
-  GroundUnit: {fileID: 0}
+  _groundUnit: {fileID: 0}
 --- !u!64 &6993964246062026486
 MeshCollider:
   m_ObjectHideFlags: 0

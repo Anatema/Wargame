@@ -18,3 +18,4 @@ MonoBehaviour:
   Targeters:
   - {fileID: 11400000, guid: 7d0ac62d67a979a46b225adf197a11bc, type: 2}
   - {fileID: 11400000, guid: 66a26fc0b73f06d46973c8e7bc156560, type: 2}
+  Icon: {fileID: 21300000, guid: 406984ac0d0fc2c4bbaf906048f7c43e, type: 3}
