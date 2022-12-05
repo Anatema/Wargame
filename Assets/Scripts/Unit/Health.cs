@@ -6,7 +6,6 @@ using UnityEngine;
 [Serializable]
 public class Health
 {
-    [SerializeField]
     private Unit _unit;
 
     [SerializeField]
@@ -20,10 +19,14 @@ public class Health
     public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
 
-    public Health(Unit unit)
+    public Health(UnitData unitData)
     {
-        _unit = unit; 
+        _maxHealth = unitData.MaxHealth;
         _currentHealth = _maxHealth;
+    }
+    public void SetUnit(Unit unit)
+    {
+        _unit = unit;
     }
     public void TakeDamage(List<Damage> damage)
     {
@@ -36,6 +39,7 @@ public class Health
                 if(_unit.CurrentUnitSize < 1)
                 {
                     Death();
+                    break;
                 }
                 _currentHealth = _maxHealth;
             }

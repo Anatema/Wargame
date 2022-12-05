@@ -29,11 +29,6 @@ public class Unit : MonoBehaviour
     public int MaxHealth => Health.MaxHealth;
     public int CurrentHealth => Health.CurrentHealth;
 
-    private int _maxActionPoints;
-    private int _currentActionPoints;
-
-    private int _speed;
-
     public bool IsEnded;
 
     //private List<Properties> _traits;
@@ -47,16 +42,22 @@ public class Unit : MonoBehaviour
     }
     public void Awake()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
-    }
-    public void Instantiate(Cell cell)
-    {
-        Movement = new Movement(this, cell);
-        Health = new Health(this);
+        _meshRenderer = GetComponentInChildren<MeshRenderer>();
+        Health.SetUnit(this);
+        Movement.SetUnit(this);
 
+    }
+    public void Instantiate(Cell cell, UnitData unitData)
+    {
+        Movement = new Movement(this, cell, unitData);
+        Health = new Health(unitData);
+
+        _maxMorale = unitData.MaxMorale;
         _currentMorale = _maxMorale;
+        _maxUnitSize = unitData.MaxUnitSize;
         _currentUnitSize = _maxUnitSize;
-        _currentActionPoints = _maxActionPoints;
+
+        Abilities = unitData.Abilities;
     }
 
     public void Active()

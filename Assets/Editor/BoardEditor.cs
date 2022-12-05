@@ -12,9 +12,9 @@ public class BoardEditor : EditorWindow
     private List<Cell> _cells;
     private HexGrid _hexGrid;
 
-    private Unit _unitPrefab;
+    private UnitData _unitData;
     private LayerMask _cellLayer;
-    private string[] displayedOptions;
+    //private string[] displayedOptions;
     private Actions _action;
     private int _unitSide;
     private enum Actions { AddObjects, RemoveObjects, Nothing }
@@ -37,11 +37,11 @@ public class BoardEditor : EditorWindow
 
     public void OnEnable()
     {
-        displayedOptions = new string[7];
+        /*displayedOptions = new string[7];
         for(int i = 0; i < 7; i++)
         {
             displayedOptions[i] = LayerMask.LayerToName(i);
-        }
+        }*/
     }
 
     private void OnFocus()
@@ -132,10 +132,10 @@ public class BoardEditor : EditorWindow
     {
         GUILayout.Label("Unit placer", EditorStyles.boldLabel);
         //_activeUnit = EditorGUILayout.Toggle("Place unit", _activeUnit);
-        _unitPrefab = (Unit)EditorGUILayout.ObjectField("Unit prefab", _unitPrefab, typeof(Unit), true);
-        _cellLayer = EditorGUILayout.MaskField("Ground layer", _cellLayer, displayedOptions);
+        _unitData = (UnitData)EditorGUILayout.ObjectField("Unit", _unitData, typeof(UnitData), true);
+        //_cellLayer = EditorGUILayout.MaskField("Ground layer", _cellLayer, displayedOptions);
         _action = (Actions)EditorGUILayout.EnumPopup(_action);
-        _unitSide = EditorGUILayout.IntField("Number of clones:", _unitSide);
+        _unitSide = EditorGUILayout.IntField("Player index:", _unitSide);
 
         GUI.enabled = !_activeUnit;
         if (GUILayout.Button("Start editing"))
@@ -213,7 +213,7 @@ public class BoardEditor : EditorWindow
     }
     private void SetUnit()
     {
-        if (_unitPrefab == null)
+        if (_unitData == null)
         {
             return;
         }
@@ -229,7 +229,7 @@ public class BoardEditor : EditorWindow
         Vector3 pos = Vector3.zero;
         Cell target = null;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _cellLayer))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 64))
         {
             if (hit.collider.GetComponent<Cell>())
             {
@@ -352,15 +352,18 @@ public class BoardEditor : EditorWindow
         {
             return;
         }
-        Unit unit = PrefabUtility.InstantiatePrefab(_unitPrefab) as Unit;
+        GameObject obj = PrefabUtility.InstantiatePrefab(_unitData.Model) as GameObject;
+        Unit unit = obj.AddComponent<Unit>();
+
+
+        //Unit unit = PrefabUtility.InstantiatePrefab(_unitData) as Unit;
         unit.PlayerIndex = Convert.ToByte(_unitSide);
         PrefabUtility.UnpackPrefabInstance(unit.gameObject, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
         FindObjectOfType<Battle>().AddUnit(unit);
 
         Undo.RecordObject(target, target.name);
-        unit.Instantiate(target);
+        unit.Instantiate(target, _unitData);
         EditorUtility.SetDirty(target);
-
         //unit.transform.parent = transform;
     }
     private void RemoveUnit(Cell targetCell)
