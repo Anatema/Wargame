@@ -31,6 +31,7 @@ public class Unit : MonoBehaviour
 
     public bool IsEnded;
 
+
     //private List<Properties> _traits;
     //private GameObject _actior / private Actor _actor;
 
@@ -83,5 +84,18 @@ public class Unit : MonoBehaviour
     public void RemoveModel()
     {
         _currentUnitSize--;
+    }
+
+    public void TargetedByAbility(bool canRetaliate, Unit caster)
+    {
+        if (canRetaliate)
+        {
+            Abilities[1].InvokeAbilty(this, caster.Cell, true);
+        }
+    }
+  
+
+    private void OnDisable()
+    {
     }
 }

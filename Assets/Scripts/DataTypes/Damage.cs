@@ -6,7 +6,13 @@ using UnityEngine;
 [Serializable]
 public struct Damage
 {
-    public int DamageValue;
+    public int MinDamage;
+    public int MaxDamage;
+
+    public int GetDamage()
+    {
+        return UnityEngine.Random.Range(MinDamage, MaxDamage + 1);
+    }
     //Damage type
 }
 

@@ -12060,14 +12060,17 @@ MonoBehaviour:
     Cell: {fileID: 7457731838654453841}
   Health:
     _defence: 0
-    _maxHealth: 10
-    _currentHealth: 10
+    _maxHealth: 1
+    _currentHealth: 1
+    OnAttacked:
+      m_PersistentCalls:
+        m_Calls: []
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
   - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 0
-  _maxUnitSize: 5
-  _currentUnitSize: 5
+  _maxUnitSize: 10
+  _currentUnitSize: 10
   IsEnded: 0
 --- !u!64 &5902934193661795816
 MeshCollider:
@@ -14294,14 +14297,17 @@ MonoBehaviour:
     Cell: {fileID: 4923049468625306190}
   Health:
     _defence: 0
-    _maxHealth: 10
-    _currentHealth: 10
+    _maxHealth: 1
+    _currentHealth: 1
+    OnAttacked:
+      m_PersistentCalls:
+        m_Calls: []
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
   - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 1
-  _maxUnitSize: 5
-  _currentUnitSize: 5
+  _maxUnitSize: 10
+  _currentUnitSize: 10
   IsEnded: 0
 --- !u!33 &6974533025750627235
 MeshFilter:
@@ -15641,14 +15647,17 @@ MonoBehaviour:
     Cell: {fileID: 2613808233640683530}
   Health:
     _defence: 0
-    _maxHealth: 10
-    _currentHealth: 10
+    _maxHealth: 1
+    _currentHealth: 1
+    OnAttacked:
+      m_PersistentCalls:
+        m_Calls: []
   Abilities:
   - {fileID: 11400000, guid: 20f0a233a6449364db4f47ae3ad77923, type: 2}
   - {fileID: 11400000, guid: bd385f9c715f0dc4d901213fd4529dc1, type: 2}
   PlayerIndex: 1
-  _maxUnitSize: 5
-  _currentUnitSize: 5
+  _maxUnitSize: 10
+  _currentUnitSize: 10
   IsEnded: 0
 --- !u!4 &7806843588789291569
 Transform:

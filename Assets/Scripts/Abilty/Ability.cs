@@ -9,7 +9,9 @@ public class Ability: ScriptableObject
     public string Name;
     public PlayerState State;
     public bool CanMoveAndAct;
-    public int Range;    
+    public bool NoRetaliation;
+    public int Range;
+    
 
     public List<Targeter> Targeters;
 
@@ -84,7 +86,7 @@ public class Ability: ScriptableObject
         }
     }
 
-    private bool InvokeAbilty(Unit caster, Cell target)
+    public bool InvokeAbilty(Unit caster, Cell target, bool isRetaliation = false)
     {
         foreach (Targeter targeter in Targeters)
         {
@@ -99,6 +101,10 @@ public class Ability: ScriptableObject
 
                 }
             }
+        }
+        if (target.GroundUnit)
+        {
+            target.GroundUnit.TargetedByAbility(!isRetaliation && !NoRetaliation, caster);
         }
         return caster.IsEnded;
     }

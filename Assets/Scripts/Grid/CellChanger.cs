@@ -28,4 +28,4 @@ public class CellChanger : MonoBehaviour
     }
 
 }
-public enum GroundType { None, Road, Field, Forest, Swamp, Mountan}
+public enum GroundType { None, Road, Field, Forest, Swamp, Mountan, Castle}

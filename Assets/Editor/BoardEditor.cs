@@ -13,7 +13,6 @@ public class BoardEditor : EditorWindow
     private HexGrid _hexGrid;
 
     private UnitData _unitData;
-    private LayerMask _cellLayer;
     //private string[] displayedOptions;
     private Actions _action;
     private int _unitSide;

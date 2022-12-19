@@ -7,7 +7,6 @@ public class Attack : Action
 {
     public Damage Damage;
     public int NumberOfAttacks;
-    public bool isRanged = false;
     public override bool CheckConditions(Unit caster, Cell target)
     {
         if(target.GroundUnit == null)
@@ -29,6 +28,8 @@ public class Attack : Action
             Damage damage = Damage;
             damages.Add(damage);
         }
-        target.GroundUnit.Health.TakeDamage(damages);
+
+        
+        target.GroundUnit.Health.TakeDamage(caster, damages);
     }
 }

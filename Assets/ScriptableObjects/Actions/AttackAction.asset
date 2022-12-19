@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AttackAction
   m_EditorClassIdentifier: 
   Damage:
-    DamageValue: 3
+    MinDamage: 0
+    MaxDamage: 2
   NumberOfAttacks: 5
-  isRanged: 0
