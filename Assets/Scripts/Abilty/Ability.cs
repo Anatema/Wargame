@@ -88,6 +88,7 @@ public class Ability: ScriptableObject
 
     public bool InvokeAbilty(Unit caster, Cell target, bool isRetaliation = false)
     {
+        List<Cell> targeted;
         foreach (Targeter targeter in Targeters)
         {
             targeter.GetTargets(caster, target, out List<Cell> targets, out List<Cell> cellPattern);

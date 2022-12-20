@@ -7,6 +7,8 @@ public class Attack : Action
 {
     public Damage Damage;
     public int NumberOfAttacks;
+
+    //hit modifiers
     public override bool CheckConditions(Unit caster, Cell target)
     {
         if(target.GroundUnit == null)
@@ -18,11 +20,15 @@ public class Attack : Action
 
     public override void Invoke(Unit caster, Cell target)
     {
+
         int numberOfAttacks;
         numberOfAttacks = NumberOfAttacks * caster.CurrentUnitSize;
+        //number of attacks
+        //line of view
+        //main chance to hit
+        //adittional chances to hit.
 
         List<Damage> damages = new List<Damage>();
-        Debug.Log(numberOfAttacks);
         for(int i = 0; i < numberOfAttacks; i++)
         {
             Damage damage = Damage;

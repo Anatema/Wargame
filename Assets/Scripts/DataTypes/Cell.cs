@@ -17,8 +17,11 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     public Cell parent;
 
     public int movementCost;
+    [SerializeField]
     private int _coverLevel;
+    [SerializeField]
     private int _obcureLevel;
+
 
     private GroundType _groundType;
     public int FCost => GCost + HCost;
@@ -44,6 +47,48 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
         }
     }
 
+    public void SetGroundType(GroundType type)
+    {
+        _groundType = type;
+        //
+        switch (type)        
+        {
+            default:
+                _coverLevel = 0;
+                _obcureLevel = 0;
+                break;
+            case GroundType.None:
+                _coverLevel = 0;
+                _obcureLevel = 0;
+                break;
+            case GroundType.Road:
+                _coverLevel = 0;
+                _obcureLevel = 0;
+                break;
+            case GroundType.Field:
+                _coverLevel = 0;
+                _obcureLevel = 0;
+                break;
+            case GroundType.Forest:
+                _coverLevel = 2;
+                _obcureLevel = 3;
+                break;
+            case GroundType.Swamp:
+                _coverLevel = -1;
+                _obcureLevel = -2;
+                break;
+            case GroundType.Mountan:
+                _coverLevel = 2;
+                _obcureLevel = 2;
+                break;
+            case GroundType.Castle:
+                _coverLevel = 3;
+                _obcureLevel = 3;
+                break;
+
+
+        }
+    }
     public void SetUnit(Unit unit)
     {
         _groundUnit = unit;

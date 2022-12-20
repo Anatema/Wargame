@@ -15,4 +15,6 @@ MonoBehaviour:
   Damage:
     MinDamage: 0
     MaxDamage: 2
+    MinMoralDamage: 5
+    MaxMoralDamage: 10
   NumberOfAttacks: 5

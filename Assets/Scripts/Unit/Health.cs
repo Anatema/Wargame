@@ -15,15 +15,21 @@ public class Health
     private int _maxHealth;
     [SerializeField]
     private int _currentHealth;
-
+    [SerializeField]
+    private int _maxMorale;
+    [SerializeField]
+    private int _currentMorale;
+     
     public int Defence => _defence;
     public int MaxHealth => _maxHealth;
     public int CurrentHealth => _currentHealth;
-
-    public UnityEvent OnAttacked;
+    public int MaxMoral => _maxMorale;
+    public int CurrentMoral => _currentMorale;
 
     public Health(UnitData unitData)
     {
+        _maxMorale = unitData.MaxMorale;
+        _currentMorale = _maxMorale;
         _maxHealth = unitData.MaxHealth;
         _currentHealth = _maxHealth;
     }
@@ -34,28 +40,42 @@ public class Health
     }
     public void TakeDamage(Unit caster, List<Damage> damage)
     {
-        foreach(Damage d in damage)
+        TakeWillDamage(damage[0]);
+        foreach (Damage d in damage)
         {
-            int damVal = CheckArmour(d);
-            _currentHealth -= damVal;
-            Debug.Log("End damage" + damVal);
-            if (_currentHealth < 1)
-            {
-                _unit.RemoveModel();
-                if(_unit.CurrentUnitSize < 1)
-                {
-                    Death();
-                    break;
-                }
-                _currentHealth = _maxHealth;
-            }
+            TakePhysicalDamage(d);
         }
-        OnAttacked?.Invoke();
+        CheckMorale();
+        if (_unit.CurrentUnitSize < 1)
+        {
+            Death();
+        }
+        //Moral damage
+    }
+    private void CheckMorale()
+    {
+        Debug.Log((float)_currentMorale / (float)_maxMorale);
+    }
+    private void TakeWillDamage(Damage damage)
+    {
+        int moralDamage = damage.GetMoralDamage();
+        _currentMorale -= moralDamage;
+        Debug.Log("moral damage" + moralDamage);
+    }
+    private void TakePhysicalDamage(Damage d)
+    {
+        int damVal = CheckArmour(d);
+        _currentHealth -= damVal;
+        if (_currentHealth < 1)
+        {
+            _unit.RemoveModel();
+            TakeWillDamage(d);
+            _currentHealth = _maxHealth;
+        }
     }
     private int CheckArmour(Damage damage)
     {
         int damageAmount = damage.GetDamage();
-        Debug.Log("Start damage" + damageAmount);
 
         if (damageAmount <= 0)
         {
@@ -65,7 +85,6 @@ public class Health
         if (damageAmount <= _defence)
         {
             float armourDamage = (float)damageAmount / (float)(_defence + damageAmount);
-            Debug.Log("armour damage K" + armourDamage);
 
             if(armourDamage < UnityEngine.Random.Range(0f, 1f)) 
             {
@@ -81,6 +100,8 @@ public class Health
             return damageAmount -= _defence;
         }
     }
+
+    
     private void Death()
     {
         _unit.Death();

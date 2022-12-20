@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+
     public Movement Movement;
     public Health Health;
     public List<Ability> Abilities;
@@ -13,8 +14,7 @@ public class Unit : MonoBehaviour
 
     public byte PlayerIndex;
 
-    private float _maxMorale;
-    private float _currentMorale;
+    
 
     [SerializeField]
     private int _maxUnitSize;
@@ -52,11 +52,6 @@ public class Unit : MonoBehaviour
     {
         Movement = new Movement(this, cell, unitData);
         Health = new Health(unitData);
-
-        _maxMorale = unitData.MaxMorale;
-        _currentMorale = _maxMorale;
-        _maxUnitSize = unitData.MaxUnitSize;
-        _currentUnitSize = _maxUnitSize;
 
         Abilities = unitData.Abilities;
     }
