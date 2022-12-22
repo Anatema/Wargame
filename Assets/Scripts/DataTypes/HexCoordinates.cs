@@ -103,6 +103,5 @@ public struct HexCoordinates
 			_x = first.X + second.X,
 			_z = first.Z + second.Z,
 		};
-
     }
 }

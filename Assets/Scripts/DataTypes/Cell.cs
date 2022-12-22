@@ -21,10 +21,13 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     private int _coverLevel;
     [SerializeField]
     private int _obcureLevel;
+    [SerializeField]
+    private bool _canSeeThrough;
 
 
     private GroundType _groundType;
     public int FCost => GCost + HCost;
+    public bool CanSeeThrough => _canSeeThrough;
     private int _heapIndex;
 
     [SerializeField]

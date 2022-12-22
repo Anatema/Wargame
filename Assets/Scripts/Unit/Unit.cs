@@ -20,14 +20,22 @@ public class Unit : MonoBehaviour
     private int _maxUnitSize;
     [SerializeField]
     private int _currentUnitSize;
+    [SerializeField]
+    private int _size;
+    [SerializeField]
+    private int _accuracy;
 
     public int MaxUnitSize => _maxUnitSize;
     public int CurrentUnitSize => _currentUnitSize;
+
+
       
 
     public int Defence => Health.Defence;
     public int MaxHealth => Health.MaxHealth;
     public int CurrentHealth => Health.CurrentHealth;
+    public int Accuracy => _accuracy;
+    public int Size => _size;
 
     public bool IsEnded;
 

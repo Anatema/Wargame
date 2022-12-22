@@ -186,4 +186,19 @@ public class HexGrid : MonoBehaviour
 		return Mathf.Max(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
 	    // or: max(abs(a.q - b.q), abs(a.r - b.r), abs(a.s - b.s))
 	}
+	public void CalculateLine(HexCoordinates start, HexCoordinates end)
+	{
+		int N = CubeDistance(start, end);
+
+		for (int i = 0; i <= N; i++)
+		{
+			Vector3 vector = new Vector3();
+			vector.x = start.X + (end.X - start.X) * 1.0f / N * i;
+			vector.y = start.Y + (end.Y - start.Y) * 1.0f / N * i;
+			vector.z = -vector.x - vector.y;
+
+			Debug.Log(GetCellByCoordintes(HexCoordinates.RoundHex(vector)).coordinates);
+		}
+
+	}
 }
