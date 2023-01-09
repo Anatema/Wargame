@@ -10,21 +10,36 @@ public class HexGrid : MonoBehaviour
 	private List<Cell> _cells;
 	public List<Cell> Cells { get { return _cells; } }
 
+	
 	public void Start()
 	{
 		SetCellsNeighbours();
+	}	
+	private void SetCellsNeighbours()
+	{
+		foreach (Cell cell in Cells)
+		{
+			cell.Neighbors = new List<Cell>();
+			cell.Neighbors = (from c in Cells
+							  where (c.coordinates.X == cell.coordinates.X && Mathf.Abs(c.coordinates.Y - cell.coordinates.Y) == 1) ||
+							  (c.coordinates.Y == cell.coordinates.Y && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1) ||
+							  (c.coordinates.Z == cell.coordinates.Z && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1)
+							  select c).ToList();
+		}
 	}
 
+
+	
 	public void CreateGrid(Cell cell, int gridRadius)
 	{
 		_cells = new List<Cell>();
 
 		for (int z = -gridRadius; z <= gridRadius; z++)
 		{
-			int r1 = Mathf.Max(-gridRadius, -z - gridRadius);
-			int r2 = Mathf.Min(gridRadius, -z + gridRadius);
+			int rMax = Mathf.Max(-gridRadius, -z - gridRadius);
+			int rMin = Mathf.Min(gridRadius, -z + gridRadius);
 
-			for (int x = r1; x <= r2; x++)
+			for (int x = rMax; x <= rMin; x++)
 			{
 				CreateCell(x, z, cell);
 			}
@@ -34,18 +49,9 @@ public class HexGrid : MonoBehaviour
 	{
 		Cell cell;
 		cell = Instantiate(_cellPrefab);
-
-		Vector3 position = new Vector3();
-		position.x = (x * HexMetrics.INNER_RADIUS * 2f + z * HexMetrics.INNER_RADIUS);
-		position.z = z * HexMetrics.OUTER_RADIUS * 2f - HexMetrics.OUTER_RADIUS / 2 * z;
-
-		cell.coordinates = new HexCoordinates(x, z);
-		cell.Grid = this;
-		cell.transform.SetParent(transform, false);
-		cell.transform.localPosition = position;
+		cell.Initialize(x, z, this);
 		_cells.Add(cell);
 	}
-
 	public void DeleteGrid()
 	{
 		if (!Application.isPlaying)
@@ -64,20 +70,6 @@ public class HexGrid : MonoBehaviour
 		}
 	}
 
-
-    private void SetCellsNeighbours()
-	{
-		foreach (Cell cell in Cells)
-		{
-			cell.Neighbors = new List<Cell>();
-			cell.Neighbors = (from c in Cells
-							  where (c.coordinates.X == cell.coordinates.X && Mathf.Abs(c.coordinates.Y - cell.coordinates.Y) == 1) ||
-							  (c.coordinates.Y == cell.coordinates.Y && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1) ||
-							  (c.coordinates.Z == cell.coordinates.Z && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1)
-							  select c).ToList();
-		}
-	}
-
 	public void ClearGridVisuals()
 	{
 		foreach (Cell cell in Cells)
@@ -85,6 +77,8 @@ public class HexGrid : MonoBehaviour
 			cell.SetAsNormal();
 		}
 	}
+	
+	//UNCHECKED
 	public List<Cell> GetPathWithReach(Cell startCell, Cell targetCell, int WeaponeReach)
     {
 		List<Cell> path = CalculatePath(startCell, targetCell, true);
@@ -110,6 +104,7 @@ public class HexGrid : MonoBehaviour
 
 		return _currentPath;
 	}
+	//UNCHECKED
 	public List<Cell> CalculatePath(Cell startCell, Cell targetCell, bool includeTargetUnit = false)
     {
 		Heap<Cell> openSet = new Heap<Cell>(Cells.Count);
@@ -163,7 +158,8 @@ public class HexGrid : MonoBehaviour
 			
 		}
 		return null;
-	}	
+	}
+	//UNCHECKED
 	private List<Cell> RetracePath(Cell startCell, Cell endCell)
     {
 		List<Cell> path = new List<Cell>();
@@ -175,7 +171,8 @@ public class HexGrid : MonoBehaviour
         }
 		path.Reverse();
 		return path;
-    }    
+    }
+	//UNCHECKED
 	public List<Cell> CalculateReach(Cell startCell, int movement, bool veighed = true, bool countObstacles = true)
 	{
 		//ClearGrid();
@@ -220,7 +217,24 @@ public class HexGrid : MonoBehaviour
 			}
         }
 		return visitedCells.Keys.ToList();
-	}	
+	}
+	//UNCHECKED
+	public void CalculateLine(HexCoordinates start, HexCoordinates end)
+	{
+		int N = CubeDistance(start, end);
+
+		for (int i = 0; i <= N; i++)
+		{
+			Vector3 vector = new Vector3();
+			vector.x = start.X + (end.X - start.X) * 1.0f / N * i;
+			vector.y = start.Y + (end.Y - start.Y) * 1.0f / N * i;
+			vector.z = -vector.x - vector.y;
+
+			//Debug.Log(GetCellByCoordintes(HexCoordinates.RoundHex(vector)).coordinates);
+		}
+
+	}
+
 	public Cell GetCellByCoordintes(HexCoordinates coordinates)
     {
 		Cell cell;
@@ -229,7 +243,8 @@ public class HexGrid : MonoBehaviour
 				select c).First();
 
 		return cell;
-    }
+    }	
+
 	public static Vector3Int CubeSubstract(HexCoordinates a, HexCoordinates b) 
 	{
 		return new Vector3Int(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
@@ -243,22 +258,9 @@ public class HexGrid : MonoBehaviour
 
 		Vector3Int vector = CubeSubstract(a, b);
 
-		return Mathf.Max(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));
-	    // or: max(abs(a.q - b.q), abs(a.r - b.r), abs(a.s - b.s))
+		return Mathf.Max(Mathf.Abs(vector.x), Mathf.Abs(vector.y), Mathf.Abs(vector.z));	    
 	}
-	public void CalculateLine(HexCoordinates start, HexCoordinates end)
-	{
-		int N = CubeDistance(start, end);
 
-		for (int i = 0; i <= N; i++)
-		{
-			Vector3 vector = new Vector3();
-			vector.x = start.X + (end.X - start.X) * 1.0f / N * i;
-			vector.y = start.Y + (end.Y - start.Y) * 1.0f / N * i;
-			vector.z = -vector.x - vector.y;
 
-			Debug.Log(GetCellByCoordintes(HexCoordinates.RoundHex(vector)).coordinates);
-		}
-
-	}
+	
 }

@@ -40,7 +40,10 @@ public class Health
     }
     public void TakeDamage(Unit caster, List<Damage> damage)
     {
-        TakeWillDamage(damage[0]);
+        if(damage.Count > 0)
+        {
+            TakeWillDamage(damage[0]);
+        }
         foreach (Damage d in damage)
         {
             TakePhysicalDamage(d);

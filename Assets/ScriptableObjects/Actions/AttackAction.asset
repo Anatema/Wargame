@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AttackAction
   m_EditorClassIdentifier: 
   Damage:
-    MinDamage: 0
-    MaxDamage: 2
+    MinDamage: 1
+    MaxDamage: 4
     MinMoralDamage: 5
     MaxMoralDamage: 10
   NumberOfAttacks: 5

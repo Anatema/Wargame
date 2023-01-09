@@ -184,6 +184,7 @@ public class Acting : PlayerState
                 return;
             }
 
+
             ShowAbiltyUseShape(targetCell);
             ChosePreviewLine(targetCell);
             ShowData(targetCell);
@@ -278,13 +279,27 @@ public class Acting : PlayerState
     }
     private void ShowAttackLine(Cell targetCell, int weaponeRange)
     {
+
+        
+
         if (targetCell == _previusTarget)
         {
             return;
         }
         _line.positionCount = 1;
         _attackLine.positionCount = 1;
-        List<Cell> path = _grid.CalculatePath(PlayerController.SelectedUnit.Cell, targetCell, true);
+        //Get Selected unit and find wich of achivable cells is closest
+
+        Cell closestCell = PlayerController.SelectedUnit.Cell;
+
+        foreach(Cell achivableCell in _achivableCells)
+        {
+            if(HexGrid.CubeDistance(achivableCell, targetCell) < HexGrid.CubeDistance(closestCell, targetCell))
+            {
+                closestCell = achivableCell;
+            }
+        }
+        List<Cell> path = _grid.CalculatePath(PlayerController.SelectedUnit.Cell, closestCell, true);
 
         if (path == null)
         {

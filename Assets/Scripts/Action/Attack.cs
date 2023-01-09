@@ -30,17 +30,17 @@ public class Attack : Action
         int modificators = CalculateModificators(caster, target);
 
         List<Damage> damages = new List<Damage>();
-        /*for(int i = 0; i < numberOfAttacks; i++)
+        for(int i = 0; i < numberOfAttacks; i++)
         {
-            if(IsHitSuccesfull(caster, target)) 
+            if(IsHitSuccesfull(caster, target, 10)) 
             {
                 Damage damage = Damage;
                 damages.Add(damage);
             }
-        }*/
+        }
 
 
-        //target.GroundUnit.Health.TakeDamage(caster, damages);
+        target.GroundUnit.Health.TakeDamage(caster, damages);
     }
     private bool IsHitSuccesfull(Unit caster, Cell target, int modificators)
     {
@@ -60,9 +60,10 @@ public class Attack : Action
 
         if (value + modificators < accuracy)
         {
+            Debug.Log("Success " + value);
             return true;
         }
-
+        Debug.Log("Fail " + value);
         return false;
     }
     private int CalculateModificators(Unit caster, Cell target)

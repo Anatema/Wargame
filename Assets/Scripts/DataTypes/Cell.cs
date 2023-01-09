@@ -41,6 +41,19 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
         OldColor = GetComponent<MeshRenderer>().material.color;
     }
 
+    public void Initialize(int x, int z, HexGrid grid)
+    {
+        Vector3 position = new Vector3();
+        position.x = (x * HexMetrics.INNER_RADIUS * 2f + z * HexMetrics.INNER_RADIUS);
+        position.z = z * HexMetrics.OUTER_RADIUS * 2f - HexMetrics.OUTER_RADIUS / 2 * z;
+
+        coordinates = new HexCoordinates(x, z);
+        Grid = grid;
+        transform.SetParent(grid.transform, false);
+        transform.localPosition = position;
+    }
+
+
     public void OnLandChanged(Ground groundType)
     {
         if (transform.childCount > 0)
@@ -75,9 +88,6 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
             _heapIndex = value;
         }
     }
-
-    
-   
     public void SetUnit(Unit unit)
     {
         _groundUnit = unit;
