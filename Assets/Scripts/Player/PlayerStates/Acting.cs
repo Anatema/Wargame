@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-[SerializeField]
 public class Acting : PlayerState
 {
     private Unit _activeUnit;
@@ -16,15 +15,16 @@ public class Acting : PlayerState
     private LineRenderer _line;
     private LineRenderer _attackLine;
 
-    private Cell _previustarget = null;
+    private Cell _previusTarget = null;
 
     private List<Cell> _achivableTargets;
     private List<Cell> _achivableCells = new List<Cell>();
 
+    private HexGrid _grid;
     public Acting(PlayerController playerController)
     {
         PlayerController = playerController;
-        StateName = "Acting";
+        StateName = "Acting";        
     }
     public override void EndState()
     {
@@ -34,7 +34,7 @@ public class Acting : PlayerState
             PlayerController.DeselectUnit();
         }
 
-        PlayerController.Battle.Grid.ClearGrid();
+        _grid.ClearGridVisuals();
         if (_line)
         {
             GameObject.Destroy(_line.gameObject);
@@ -46,6 +46,7 @@ public class Acting : PlayerState
     }
     public override void EnterState()
     {
+        _grid = LevelManager.Instance.GetGrid();
         if (PlayerController.SelectedUnit == null)
         {
             PlayerController.SelectState(PlayerController.Selecting);
@@ -84,7 +85,7 @@ public class Acting : PlayerState
     }
     private void ShowPreview()
     {
-        PlayerController.Battle.Grid.ClearGrid();
+        _grid.ClearGridVisuals();
         //_activeAbilty.Prepare(_activeUnit, out _achivableTargets);
         ShowMoveReach();
         _achivableTargets = _activeAbilty.GetAchivableTargets(_achivableCells, _activeUnit);
@@ -100,7 +101,7 @@ public class Acting : PlayerState
         {
             foreach(Unit unit in PlayerController.Battle.Units)
             {
-                List<Cell> cellsInUnitRange = PlayerController.Battle.Grid.CalculateReach(unit.Cell, _activeAbilty.Range, false, false);
+                List<Cell> cellsInUnitRange = _grid.CalculateReach(unit.Cell, _activeAbilty.Range, false, false);
                 foreach (Cell cell in cellsInUnitRange)
                 {
                     if (_achivableCells.Contains(cell) && !possibleTargets.Contains(cell))
@@ -113,7 +114,7 @@ public class Acting : PlayerState
         }
         else
         {
-            possibleTargets = PlayerController.Battle.Grid.CalculateReach(_activeUnit.Cell, _activeAbilty.Range, false, false);
+            possibleTargets = _grid.CalculateReach(_activeUnit.Cell, _activeAbilty.Range, false, false);
             if (!possibleTargets.Contains(_activeUnit.Cell))
             {
                 possibleTargets.Add(_activeUnit.Cell);
@@ -188,7 +189,7 @@ public class Acting : PlayerState
             ShowData(targetCell);
             ProcessAction(targetCell);
 
-            _previustarget = targetCell;
+            _previusTarget = targetCell;
         }
     }
 
@@ -198,7 +199,7 @@ public class Acting : PlayerState
         {
             if (_activeAbilty.Invoke(_activeUnit, targetCell))
             {
-                PlayerController.Battle.Grid.ClearGrid();
+                _grid.ClearGridVisuals();
                 ShowPreview();
             }
             else
@@ -256,7 +257,7 @@ public class Acting : PlayerState
     {
         _line.positionCount = 1;
         _attackLine.positionCount = 1;
-        List<Cell> path = PlayerController.Battle.Grid.CalculatePath(PlayerController.SelectedUnit.Cell, targetCell, true);
+        List<Cell> path = _grid.CalculatePath(PlayerController.SelectedUnit.Cell, targetCell, true);
         if (path == null)
         {
             _line.positionCount = 0;
@@ -277,16 +278,17 @@ public class Acting : PlayerState
     }
     private void ShowAttackLine(Cell targetCell, int weaponeRange)
     {
-        if (targetCell == _previustarget)
+        if (targetCell == _previusTarget)
         {
             return;
         }
         _line.positionCount = 1;
         _attackLine.positionCount = 1;
-        List<Cell> path = PlayerController.Battle.Grid.CalculatePath(PlayerController.SelectedUnit.Cell, targetCell, true);
+        List<Cell> path = _grid.CalculatePath(PlayerController.SelectedUnit.Cell, targetCell, true);
 
         if (path == null)
         {
+            Debug.Log("Path is null");
             return;
         }
 

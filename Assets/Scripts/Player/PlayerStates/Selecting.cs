@@ -6,6 +6,7 @@ using UnityEngine;
 [SerializeField]
 public class Selecting : PlayerState
 {
+    private HexGrid _grid;
     public Selecting(PlayerController playerController)
     {
         PlayerController = playerController;
@@ -61,11 +62,12 @@ public class Selecting : PlayerState
 
     public override void EndState()
     {
-        PlayerController.Battle.Grid.ClearGrid();
+        _grid.ClearGridVisuals();
         PlayerController.DataPanel.HideData();
     }
     public override void EnterState()
     {
+        _grid = LevelManager.Instance.GetGrid();
         if (PlayerController.SelectedUnit)
         {
             PlayerController.DeselectUnit();

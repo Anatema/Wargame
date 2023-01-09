@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private PlayerState _playerState;
     private Waiting _waiting;
     private Selecting _selecting;
+    [SerializeField]
     private Acting _acting;
 
     public Waiting Waiting => _waiting;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         _playerState = Waiting;
         _currentState.text = Waiting.StateName;
     }
+
 
     public void Update()
     {

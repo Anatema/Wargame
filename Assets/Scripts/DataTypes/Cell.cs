@@ -9,6 +9,7 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     public List<Cell> Neighbors;
     public Color OldColor;
     
+
     public HexCoordinates coordinates;    
     public bool IsReachable;
 
@@ -23,9 +24,10 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     private int _obcureLevel;
     [SerializeField]
     private bool _canSeeThrough;
+    [SerializeField]
+    private Ground _ground;
 
-
-    private GroundType _groundType;
+    //private GroundType _groundType;
     public int FCost => GCost + HCost;
     public bool CanSeeThrough => _canSeeThrough;
     private int _heapIndex;
@@ -37,6 +39,30 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
     public void Awake()
     {
         OldColor = GetComponent<MeshRenderer>().material.color;
+    }
+
+    public void OnLandChanged(Ground groundType)
+    {
+        if (transform.childCount > 0)
+        {
+            foreach (Transform child in transform)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+        }
+        if (groundType.GroundPrefab)
+        {
+            Instantiate(groundType.GroundPrefab, transform);
+        }
+        SetGroundType(groundType);
+    }
+    public void SetGroundType(Ground ground)
+    {
+        _ground = ground;
+
+        movementCost = ground.MovementCost;
+        _coverLevel = ground.CoverLevel;
+        _obcureLevel = ground.ObsucreLevel;
     }
     public int HeapIndex
     {
@@ -50,48 +76,8 @@ public class Cell : MonoBehaviour, IHeapItem<Cell>
         }
     }
 
-    public void SetGroundType(GroundType type)
-    {
-        _groundType = type;
-        //
-        switch (type)        
-        {
-            default:
-                _coverLevel = 0;
-                _obcureLevel = 0;
-                break;
-            case GroundType.None:
-                _coverLevel = 0;
-                _obcureLevel = 0;
-                break;
-            case GroundType.Road:
-                _coverLevel = 0;
-                _obcureLevel = 0;
-                break;
-            case GroundType.Field:
-                _coverLevel = 0;
-                _obcureLevel = 0;
-                break;
-            case GroundType.Forest:
-                _coverLevel = 2;
-                _obcureLevel = 3;
-                break;
-            case GroundType.Swamp:
-                _coverLevel = -1;
-                _obcureLevel = -2;
-                break;
-            case GroundType.Mountan:
-                _coverLevel = 2;
-                _obcureLevel = 2;
-                break;
-            case GroundType.Castle:
-                _coverLevel = 3;
-                _obcureLevel = 3;
-                break;
-
-
-        }
-    }
+    
+   
     public void SetUnit(Unit unit)
     {
         _groundUnit = unit;

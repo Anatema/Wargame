@@ -80,9 +80,6 @@ public class Unit : MonoBehaviour
         {
             FindObjectOfType<Battle>().RemoveUnit(this);
         }
-        Cell.RemoveGroundUnit();
-        Debug.Log("Unit killed!");
-        Destroy(this.gameObject);
     }
     public void RemoveModel()
     {

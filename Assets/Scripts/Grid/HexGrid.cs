@@ -6,20 +6,85 @@ using System.Linq;
 public class HexGrid : MonoBehaviour
 {
 	//public MapGenerator generator;
-	public List<Cell> Cells;
+	[SerializeField]
+	private List<Cell> _cells;
+	public List<Cell> Cells { get { return _cells; } }
 
-    public void SetGrid(List<Cell> cells)
-    {
-		Cells = cells;
+	public void Start()
+	{
+		SetCellsNeighbours();
 	}
-	public void ClearGrid()
+
+	public void CreateGrid(Cell cell, int gridRadius)
+	{
+		_cells = new List<Cell>();
+
+		for (int z = -gridRadius; z <= gridRadius; z++)
+		{
+			int r1 = Mathf.Max(-gridRadius, -z - gridRadius);
+			int r2 = Mathf.Min(gridRadius, -z + gridRadius);
+
+			for (int x = r1; x <= r2; x++)
+			{
+				CreateCell(x, z, cell);
+			}
+		}
+	}
+	private void CreateCell(int x, int z, Cell _cellPrefab)
+	{
+		Cell cell;
+		cell = Instantiate(_cellPrefab);
+
+		Vector3 position = new Vector3();
+		position.x = (x * HexMetrics.INNER_RADIUS * 2f + z * HexMetrics.INNER_RADIUS);
+		position.z = z * HexMetrics.OUTER_RADIUS * 2f - HexMetrics.OUTER_RADIUS / 2 * z;
+
+		cell.coordinates = new HexCoordinates(x, z);
+		cell.Grid = this;
+		cell.transform.SetParent(transform, false);
+		cell.transform.localPosition = position;
+		_cells.Add(cell);
+	}
+
+	public void DeleteGrid()
+	{
+		if (!Application.isPlaying)
+		{
+			while (transform.childCount > 0)
+			{
+				DestroyImmediate(transform.GetChild(0).gameObject);
+			}
+		}
+		else
+		{
+			foreach (Transform child in transform)
+			{
+				Destroy(child.gameObject);
+			}
+		}
+	}
+
+
+    private void SetCellsNeighbours()
+	{
+		foreach (Cell cell in Cells)
+		{
+			cell.Neighbors = new List<Cell>();
+			cell.Neighbors = (from c in Cells
+							  where (c.coordinates.X == cell.coordinates.X && Mathf.Abs(c.coordinates.Y - cell.coordinates.Y) == 1) ||
+							  (c.coordinates.Y == cell.coordinates.Y && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1) ||
+							  (c.coordinates.Z == cell.coordinates.Z && Mathf.Abs(c.coordinates.X - cell.coordinates.X) == 1)
+							  select c).ToList();
+		}
+	}
+
+	public void ClearGridVisuals()
 	{
 		foreach (Cell cell in Cells)
 		{
 			cell.SetAsNormal();
 		}
 	}
-
 	public List<Cell> GetPathWithReach(Cell startCell, Cell targetCell, int WeaponeReach)
     {
 		List<Cell> path = CalculatePath(startCell, targetCell, true);
@@ -98,9 +163,7 @@ public class HexGrid : MonoBehaviour
 			
 		}
 		return null;
-	}
-	
-
+	}	
 	private List<Cell> RetracePath(Cell startCell, Cell endCell)
     {
 		List<Cell> path = new List<Cell>();
@@ -157,9 +220,7 @@ public class HexGrid : MonoBehaviour
 			}
         }
 		return visitedCells.Keys.ToList();
-	}
-	
-
+	}	
 	public Cell GetCellByCoordintes(HexCoordinates coordinates)
     {
 		Cell cell;
@@ -173,7 +234,6 @@ public class HexGrid : MonoBehaviour
 	{
 		return new Vector3Int(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 	}
-
 	public static int CubeDistance(Cell a, Cell b)
     {
 		return CubeDistance(a.coordinates, b.coordinates);

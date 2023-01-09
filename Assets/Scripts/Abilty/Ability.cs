@@ -88,7 +88,7 @@ public class Ability: ScriptableObject
 
     public bool InvokeAbilty(Unit caster, Cell target, bool isRetaliation = false)
     {
-        List<Cell> targeted;
+        //List<Cell> targeted;
         foreach (Targeter targeter in Targeters)
         {
             targeter.GetTargets(caster, target, out List<Cell> targets, out List<Cell> cellPattern);
@@ -116,6 +116,7 @@ public class Ability: ScriptableObject
         HexGrid grid = GameObject.FindObjectOfType<HexGrid>();
         Battle battle = GameObject.FindObjectOfType<Battle>();
 
+        
         if (CanMoveAndAct)
         {
             foreach (Unit unit in battle.Units)
@@ -123,7 +124,7 @@ public class Ability: ScriptableObject
                 List<Cell> cellsInUnitRange = grid.CalculateReach(unit.Cell, Range, false, false);
                 foreach (Cell cell in cellsInUnitRange)
                 {
-                    if (achivableCells.Contains(cell) && !possibleTargets.Contains(cell))
+                    if (achivableCells.Contains(cell) && !possibleTargets.Contains(unit.Cell))
                     {
                         possibleTargets.Add(unit.Cell);
                         break;
